@@ -198,23 +198,35 @@ section.block:first-of-type{border-top:none;padding-top:16px}
 .tag-vermelho{background:var(--danger-soft);color:var(--danger);border:1px solid rgba(184,92,92,.25)}
 .tag-roxo{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-line)}
 
-.card-accent{border-left:3px solid var(--accent);background:var(--bg-elev)}
+/* Card com sutil tingimento roxo — substitui border-left grossa */
+.card-accent{
+  background:#FBF7FB;
+  border:1px solid var(--accent-line);
+  box-shadow:none;
+}
 .card-highlight{background:var(--accent-soft);border-color:var(--accent-line)}
 
 /* ---------- CALLOUTS ---------- */
+/* Callouts com fundo tingido sutil, sem borda lateral colorida */
 .callout{
   padding:20px 24px;border-radius:var(--radius);
   margin:24px 0;font-size:15px;line-height:1.6;
-  border-left:3px solid;
+  border:1px solid transparent;
 }
-.callout-info{background:var(--bg-elev);border-color:var(--accent);border-left-color:var(--accent);border:1px solid var(--border);border-left:3px solid var(--accent)}
-.callout-warn{background:var(--warning-soft);border-left-color:var(--warning);color:var(--text-muted)}
+.callout-info{background:#FBF7FB;border-color:var(--accent-line)}
+.callout-warn{background:#FCF7E8;border-color:rgba(184,134,11,.20)}
 .callout-title{
+  display:inline-flex;align-items:center;gap:8px;
   font-family:var(--font-mono);font-size:11px;font-weight:600;
   letter-spacing:.08em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:8px;
+  color:var(--accent);margin-bottom:10px;
+}
+.callout-title::before{
+  content:"";display:inline-block;width:6px;height:6px;
+  border-radius:50%;background:var(--accent);flex-shrink:0;
 }
 .callout-warn .callout-title{color:var(--warning)}
+.callout-warn .callout-title::before{background:var(--warning)}
 .callout p{margin-bottom:8px;color:var(--text-muted);max-width:none}
 .callout p:last-child{margin-bottom:0}
 .callout ul{margin:8px 0 0 20px;color:var(--text-muted);max-width:none}
@@ -370,14 +382,21 @@ td.cell-vermelho{background:rgba(184,92,92,.05)}
   background:var(--bg-elev);border:1px solid var(--border);
   border-radius:var(--radius);padding:20px;
 }
-.compare-side.vago{border-left:3px solid var(--danger)}
-.compare-side.situado{border-left:3px solid var(--success)}
+.compare-side.vago{background:#FBF5F5;border-color:rgba(184,92,92,.18)}
+.compare-side.situado{background:#F5F9F5;border-color:rgba(46,125,50,.18)}
 .compare-side .label{
+  display:inline-flex;align-items:center;gap:8px;
   font-family:var(--font-mono);font-size:11px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;
+}
+.compare-side .label::before{
+  content:"";display:inline-block;width:8px;height:8px;
+  border-radius:50%;flex-shrink:0;
 }
 .compare-side.vago .label{color:var(--danger)}
+.compare-side.vago .label::before{background:var(--danger)}
 .compare-side.situado .label{color:var(--success)}
+.compare-side.situado .label::before{background:var(--success)}
 .compare-prompt{
   font-family:var(--font-mono);font-size:13px;line-height:1.6;
   background:var(--bg-code);padding:14px;border-radius:var(--radius-sm);
@@ -636,12 +655,12 @@ campanha falhar. Não suavize. [Cole a proposta]</div>
 
       <div class="compare">
         <div class="compare-side vago">
-          <div class="label">🔴 Sem contexto</div>
+          <div class="label">Sem contexto</div>
           <div class="compare-prompt">Me ajude a gerar um plano de ação.</div>
           <p class="compare-verdict">A IA responde bem — mas <strong>genérico</strong>. Vai voltar com template SMART, matriz 5W2H, cronograma vazio. Serve pra apresentação de MBA, não pra reunião com franqueado na 3ª.</p>
         </div>
         <div class="compare-side situado">
-          <div class="label">🟢 Com contexto</div>
+          <div class="label">Com contexto</div>
           <div class="compare-prompt">Me ajude a gerar um plano de ação como
 Coordenadora de Operações Comerciais da
 Maria Pitanga (rede de +200 franquias de açaí)
@@ -874,6 +893,7 @@ com o CEO.</div>
           <div class="gen-preview-head">
             <span class="gen-preview-title">Prompt pronto</span>
             <div class="gen-actions">
+              <button class="btn btn-ghost" id="btn-exemplo" type="button">Exemplo</button>
               <button class="btn btn-ghost" id="btn-limpar" type="button">Limpar</button>
               <button class="btn btn-primary" id="btn-copiar" type="button">Copiar</button>
             </div>
@@ -956,7 +976,7 @@ com o CEO.</div>
       </div>
 
       <div class="callout callout-warn">
-        <div class="callout-title">🟣 O que você leva para a Maria Pitanga na 2ª feira</div>
+        <div class="callout-title">O que você leva para a Maria Pitanga na 2ª feira</div>
         <p>Até sexta-feira, monte seu <strong>primeiro PCTFL+ real</strong> — uma tarefa que se repete no seu dia — e rode em Kimi ou DeepSeek. Salve o prompt em algum lugar (bloco de notas, Google Doc, arquivo do desktop). <strong>Ele vira ativo da sua área</strong> — no próximo módulo você vai aprender a plugar esse prompt num assistente que roda por você.</p>
       </div>
     </section>
@@ -1049,6 +1069,15 @@ com o CEO.</div>
   });
 
   document.getElementById('btn-limpar').addEventListener('click', function(){
+    fields.forEach(function(k){
+      document.getElementById('f-'+k).value = '';
+    });
+    try { localStorage.removeItem('mp-m1-gen'); } catch(e){}
+    render();
+    document.getElementById('f-papel').focus();
+  });
+
+  document.getElementById('btn-exemplo').addEventListener('click', function(){
     fields.forEach(function(k){
       document.getElementById('f-'+k).value = defaults[k];
     });
