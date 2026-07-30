@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M1 · IA na Prática — Maria Pitanga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F0EEE6;
+  --bg-elev:#FFFFFF;
+  --bg-warm:#E8E6DC;
+  --bg-code:#F5F3EA;
+  --text:#141413;
+  --text-muted:#3D3D3A;
+  --text-dim:#87867F;
+  --border:rgba(20,20,19,.10);
+  --border-strong:rgba(20,20,19,.18);
+  --accent:#6B2E7A;
+  --accent-dark:#4A1F55;
+  --accent-soft:#F0E3EF;
+  --accent-line:rgba(107,46,122,.20);
+  --success:#2E7D32;
+  --success-soft:#E8F1E9;
+  --warning:#B8860B;
+  --warning-soft:#FBF3DE;
+  --danger:#B85C5C;
+  --danger-soft:#F5E3E3;
+  --radius-sm:6px;
+  --radius:10px;
+  --radius-lg:14px;
+  --shadow-sm:0 1px 2px rgba(20,20,19,.04),0 1px 3px rgba(20,20,19,.06);
+  --shadow-md:0 4px 12px rgba(20,20,19,.06),0 2px 4px rgba(20,20,19,.04);
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono','Menlo',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+/* ---------- HEADER ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(240,238,230,.92);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.site-header-inner{
+  max-width:1280px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--accent);color:#fff;
+  display:grid;place-items:center;font-weight:700;font-size:14px;
+  letter-spacing:.02em;flex-shrink:0;
+}
+.brand-text{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.brand-title{font-weight:600;font-size:14px;color:var(--text)}
+.brand-sub{font-size:12px;color:var(--text-dim)}
+.header-meta{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted)}
+.chip{
+  display:inline-flex;align-items:center;padding:4px 10px;
+  border-radius:999px;font-size:12px;font-weight:500;
+  background:var(--bg-warm);color:var(--text-muted);
+  border:1px solid var(--border);
+}
+.chip-accent{background:var(--accent-soft);color:var(--accent-dark);border-color:var(--accent-line)}
+
+/* ---------- LAYOUT ---------- */
+.layout{
+  max-width:1280px;margin:0 auto;padding:32px 24px 96px;
+  display:grid;grid-template-columns:240px 1fr;gap:56px;
+}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:24px;padding:24px 20px 64px}
+}
+
+/* ---------- NAV LATERAL ---------- */
+.side-nav{
+  position:sticky;top:88px;align-self:start;
+  max-height:calc(100vh - 104px);overflow-y:auto;
+  padding-right:8px;
+}
+@media (max-width:900px){
+  .side-nav{position:static;max-height:none;padding:16px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);overflow-x:auto}
+}
+.side-nav-label{
+  font-size:11px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.10em;color:var(--text-dim);
+  margin-bottom:12px;padding-left:12px;
+}
+.side-nav-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+@media (max-width:900px){.side-nav-list{flex-direction:row;flex-wrap:wrap;gap:6px}}
+.side-nav-item a{
+  display:block;padding:8px 12px;font-size:13.5px;line-height:1.4;
+  color:var(--text-muted);text-decoration:none;border-radius:6px;
+  border-left:2px solid transparent;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.side-nav-item a:hover{background:var(--bg-warm);color:var(--text)}
+.side-nav-item a.is-active{
+  color:var(--accent);background:var(--accent-soft);
+  border-left-color:var(--accent);font-weight:500;
+}
+.side-nav-num{
+  font-family:var(--font-mono);font-size:11px;
+  color:var(--text-dim);margin-right:8px;font-weight:400;
+}
+.side-nav-item a.is-active .side-nav-num{color:var(--accent)}
+@media (max-width:900px){.side-nav-num{margin-right:4px}}
+
+/* ---------- HERO ---------- */
+.hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
+.hero-eyebrow{
+  font-family:var(--font-mono);font-size:12px;font-weight:500;
+  color:var(--accent);text-transform:uppercase;letter-spacing:.10em;
+  margin-bottom:20px;
+}
+.hero h1{
+  font-size:44px;line-height:1.1;font-weight:600;
+  color:var(--text);letter-spacing:-.02em;margin-bottom:20px;
+  max-width:780px;
+}
+@media (max-width:640px){.hero h1{font-size:32px}}
+.hero-lead{
+  font-size:19px;line-height:1.55;color:var(--text-muted);
+  max-width:680px;margin-bottom:28px;
+}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ---------- CONTENT ---------- */
+section.block{padding:56px 0;border-top:1px solid var(--border)}
+section.block:first-of-type{border-top:none;padding-top:16px}
+.block-num{
+  font-family:var(--font-mono);font-size:12px;font-weight:500;
+  color:var(--accent);letter-spacing:.10em;margin-bottom:14px;
+}
+.block h2{
+  font-size:32px;line-height:1.15;font-weight:600;
+  color:var(--text);letter-spacing:-.015em;margin-bottom:16px;
+  max-width:780px;
+}
+@media (max-width:640px){.block h2{font-size:26px}}
+.block h3{
+  font-size:20px;line-height:1.3;font-weight:600;
+  color:var(--text);margin:24px 0 12px;letter-spacing:-.01em;
+}
+.block-lead{
+  font-size:17px;line-height:1.6;color:var(--text-muted);
+  max-width:720px;margin-bottom:24px;
+}
+.block p{margin-bottom:16px;color:var(--text-muted);max-width:720px}
+.block p strong{color:var(--text);font-weight:600}
+.block ul,.block ol{margin:0 0 20px 20px;color:var(--text-muted);max-width:720px}
+.block li{margin-bottom:8px;padding-left:4px}
+.block li strong{color:var(--text)}
+
+/* ---------- CARDS ---------- */
+.card{
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);padding:24px;
+  box-shadow:var(--shadow-sm);
+}
+.card-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.card-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}
+@media (max-width:720px){.card-grid-2,.card-grid-3{grid-template-columns:1fr}}
+.card-eyebrow{
+  font-family:var(--font-mono);font-size:11px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:8px;
+}
+.card h4{font-size:17px;font-weight:600;margin-bottom:10px;color:var(--text);letter-spacing:-.005em}
+.card p{font-size:15px;color:var(--text-muted);margin-bottom:8px;line-height:1.55}
+.card p:last-child{margin-bottom:0}
+.card-tag{
+  display:inline-block;padding:3px 8px;border-radius:6px;
+  font-size:11px;font-weight:600;letter-spacing:.02em;
+  margin-bottom:12px;
+}
+.tag-verde{background:var(--success-soft);color:var(--success);border:1px solid rgba(46,125,50,.20)}
+.tag-amarelo{background:var(--warning-soft);color:var(--warning);border:1px solid rgba(184,134,11,.25)}
+.tag-vermelho{background:var(--danger-soft);color:var(--danger);border:1px solid rgba(184,92,92,.25)}
+.tag-roxo{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-line)}
+
+.card-accent{border-left:3px solid var(--accent);background:var(--bg-elev)}
+.card-highlight{background:var(--accent-soft);border-color:var(--accent-line)}
+
+/* ---------- CALLOUTS ---------- */
+.callout{
+  padding:20px 24px;border-radius:var(--radius);
+  margin:24px 0;font-size:15px;line-height:1.6;
+  border-left:3px solid;
+}
+.callout-info{background:var(--bg-elev);border-color:var(--accent);border-left-color:var(--accent);border:1px solid var(--border);border-left:3px solid var(--accent)}
+.callout-warn{background:var(--warning-soft);border-left-color:var(--warning);color:var(--text-muted)}
+.callout-title{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:8px;
+}
+.callout-warn .callout-title{color:var(--warning)}
+.callout p{margin-bottom:8px;color:var(--text-muted);max-width:none}
+.callout p:last-child{margin-bottom:0}
+.callout ul{margin:8px 0 0 20px;color:var(--text-muted);max-width:none}
+
+/* ---------- TABLE ---------- */
+.table-wrap{
+  margin:20px 0;overflow-x:auto;
+  border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--bg-elev);
+}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+thead th{
+  background:var(--bg-warm);color:var(--text);
+  font-weight:600;text-align:left;padding:12px 16px;
+  border-bottom:1px solid var(--border-strong);font-size:13px;
+  letter-spacing:.01em;
+}
+tbody td{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  vertical-align:top;color:var(--text-muted);line-height:1.5;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-warm)}
+tbody td strong{color:var(--text);font-weight:600}
+td.cell-verde{background:rgba(46,125,50,.05)}
+td.cell-vermelho{background:rgba(184,92,92,.05)}
+.badge-red{color:var(--danger);font-weight:500}
+.badge-green{color:var(--success);font-weight:500}
+
+/* ---------- MATRIX 2x2 ---------- */
+.matriz{
+  display:grid;grid-template-columns:120px 1fr 1fr;gap:0;
+  border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;background:var(--bg-elev);margin:24px 0;
+}
+.matriz-head{
+  background:var(--bg-warm);padding:14px;font-size:12px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--text);
+  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+}
+.matriz-head:last-child{border-right:none}
+.matriz-corner{background:var(--bg);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.matriz-row-label{
+  background:var(--bg-warm);padding:20px 14px;
+  font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--text);border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.3;
+}
+.matriz-row-label:last-of-type{border-bottom:none}
+.matriz-cell{
+  padding:18px;border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);background:var(--bg-elev);
+}
+.matriz-cell:nth-of-type(3n+3){border-right:none}
+.matriz-cell:nth-last-of-type(-n+2){border-bottom:none}
+.matriz-cell-title{
+  font-weight:600;font-size:15px;margin-bottom:6px;color:var(--text);
+  display:flex;align-items:center;gap:8px;
+}
+.matriz-cell-desc{font-size:13px;color:var(--text-dim);margin-bottom:8px}
+.matriz-cell-ex{
+  font-size:13px;color:var(--text-muted);line-height:1.5;
+}
+.matriz-cell-here{
+  display:inline-block;background:var(--accent);color:#fff;
+  font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;
+}
+@media (max-width:720px){
+  .matriz{grid-template-columns:1fr;overflow:visible}
+  .matriz-corner,.matriz-head{border-right:none}
+  .matriz-row-label{border-right:none;padding:12px}
+  .matriz-cell{border-right:none}
+  .matriz-cell:nth-of-type(3n+3){border-right:none}
+}
+
+/* ---------- CÓDIGO / PROMPT ---------- */
+.prompt-box{
+  background:var(--bg-code);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+  font-family:var(--font-mono);font-size:13.5px;line-height:1.65;
+  color:var(--text);white-space:pre-wrap;overflow-x:auto;
+  margin:16px 0;
+}
+.prompt-marker{color:var(--accent);font-weight:600}
+.prompt-comment{color:var(--text-dim);font-style:italic}
+
+/* ---------- GENERATOR ---------- */
+.gen{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+  margin:24px 0;
+}
+@media (max-width:900px){.gen{grid-template-columns:1fr}}
+.gen-form,.gen-preview{
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+}
+.gen-form label{
+  display:block;margin-bottom:14px;
+}
+.gen-label{
+  display:block;font-family:var(--font-mono);font-size:11px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:4px;
+}
+.gen-hint{
+  display:block;font-size:12px;color:var(--text-dim);
+  margin-bottom:6px;line-height:1.4;
+}
+.gen-form textarea,.gen-form input{
+  width:100%;padding:10px 12px;font-family:var(--font-body);font-size:14px;
+  border:1px solid var(--border-strong);border-radius:var(--radius-sm);
+  background:var(--bg);color:var(--text);resize:vertical;
+  line-height:1.5;
+  transition:border-color .15s,box-shadow .15s;
+}
+.gen-form textarea:focus,.gen-form input:focus{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft);
+}
+.gen-form textarea{min-height:60px}
+.gen-preview-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:14px;
+}
+.gen-preview-title{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);
+}
+.gen-actions{display:flex;gap:8px}
+.btn{
+  padding:8px 14px;border-radius:var(--radius-sm);font-size:13px;
+  font-weight:500;cursor:pointer;border:1px solid;
+  font-family:var(--font-body);transition:background .15s,border-color .15s;
+}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+.btn-primary.copied{background:var(--success);border-color:var(--success)}
+.btn-ghost{background:transparent;color:var(--text-muted);border-color:var(--border-strong)}
+.btn-ghost:hover{background:var(--bg-warm);color:var(--text)}
+.gen-output{
+  font-family:var(--font-mono);font-size:13px;line-height:1.65;
+  color:var(--text);white-space:pre-wrap;
+  min-height:400px;
+}
+.gen-output .ph{color:var(--text-dim);font-style:italic}
+
+/* ---------- COMPARE ---------- */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+@media (max-width:720px){.compare{grid-template-columns:1fr}}
+.compare-side{
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;
+}
+.compare-side.vago{border-left:3px solid var(--danger)}
+.compare-side.situado{border-left:3px solid var(--success)}
+.compare-side .label{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;
+}
+.compare-side.vago .label{color:var(--danger)}
+.compare-side.situado .label{color:var(--success)}
+.compare-prompt{
+  font-family:var(--font-mono);font-size:13px;line-height:1.6;
+  background:var(--bg-code);padding:14px;border-radius:var(--radius-sm);
+  margin:10px 0;color:var(--text);white-space:pre-wrap;
+}
+.compare-verdict{font-size:14px;color:var(--text-muted);line-height:1.55}
+
+/* ---------- FOOTER ---------- */
+.site-footer{
+  border-top:1px solid var(--border);background:var(--bg-warm);
+  padding:32px 24px;margin-top:32px;text-align:center;
+  font-size:13px;color:var(--text-dim);
+}
+.site-footer strong{color:var(--text-muted);font-weight:600}
+.site-footer a{color:var(--accent);text-decoration:none}
+.site-footer a:hover{text-decoration:underline}
+
+/* ---------- UTIL ---------- */
+.spacer-sm{height:12px}
+.spacer{height:24px}
+.text-mono{font-family:var(--font-mono);font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="brand">
+      <div class="brand-mark">MP</div>
+      <div class="brand-text">
+        <div class="brand-title">Workshop IA na Prática</div>
+        <div class="brand-sub">Maria Pitanga · com Rafael Lima</div>
+      </div>
+    </div>
+    <div class="header-meta">
+      <span class="chip">Módulo 1 de 5</span>
+      <span class="chip chip-accent">4h</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ============ NAV LATERAL ============ -->
+  <aside class="side-nav" aria-label="Sumário do módulo">
+    <div class="side-nav-label">Neste módulo</div>
+    <ul class="side-nav-list">
+      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>O que é IA generativa</a></li>
+      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>As 3 zonas do que você sabe</a></li>
+      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>Delegação × Estruturação</a></li>
+      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">04</span>Os 3 modos de uso</a></li>
+      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">05</span>Sem contexto × com contexto</a></li>
+      <li class="side-nav-item"><a href="#s6"><span class="side-nav-num">06</span>Prompt ruim é culpa do humano</a></li>
+      <li class="side-nav-item"><a href="#s7"><span class="side-nav-num">07</span>PCTFL+ — as 6 camadas</a></li>
+      <li class="side-nav-item"><a href="#s8"><span class="side-nav-num">08</span>O verbo é o núcleo</a></li>
+      <li class="side-nav-item"><a href="#s9"><span class="side-nav-num">09</span>Monte seu prompt agora</a></li>
+      <li class="side-nav-item"><a href="#s10"><span class="side-nav-num">10</span>Do prompt ao assistente</a></li>
+    </ul>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-eyebrow">Módulo 1 · Fundamentos + Método</div>
+      <h1>IA na Prática: o que é, o que faz por você e como pedir bem.</h1>
+      <p class="hero-lead">
+        Neste primeiro módulo você entende o que a IA generativa é sem jargão, descobre onde ela cabe no seu trabalho — logística, marketing, atendimento, RH, TI, financeiro — e sai com o método que separa "usei IA hoje" de "IA virou meu processo": <strong>PCTFL+ com Critério de Sucesso.</strong>
+      </p>
+      <div class="hero-meta">
+        <span class="chip">10 tópicos</span>
+        <span class="chip">~60 min</span>
+        <span class="chip chip-accent">Ferramenta viva no fim</span>
+      </div>
+    </section>
+
+    <!-- ============ 01 ============ -->
+    <section id="s1" class="block">
+      <div class="block-num">01</div>
+      <h2>O que a IA generativa é — e por que isso muda a estratégia</h2>
+      <p class="block-lead">
+        Antes de qualquer coisa: <strong>IA generativa é um auto-completar treinado em quase tudo que a humanidade já escreveu.</strong> Ela prevê a próxima palavra baseada em probabilidade estatística — não pensa, não tem intuição, não conhece a Maria Pitanga.
+      </p>
+
+      <p>Parece pouco, mas essa base explica três coisas que mudam sua rotina imediatamente:</p>
+
+      <div class="card-grid-3">
+        <div class="card card-accent">
+          <div class="card-eyebrow">Implicação 1</div>
+          <h4>Fluência ≠ exatidão</h4>
+          <p>Ela escreve com confiança mesmo quando inventa. Nome de rua, procedimento de franquia, número de vendas — sai plausível, e vai errado se você não conferir.</p>
+        </div>
+        <div class="card card-accent">
+          <div class="card-eyebrow">Implicação 2</div>
+          <h4>Contexto define o valor</h4>
+          <p>Sem contexto seu, ela responde para "uma açaiteria genérica". Com o seu — mix de sabores, POP da fábrica, tom do CRM — vira ferramenta de trabalho. <strong>O ativo é o seu conhecimento.</strong></p>
+        </div>
+        <div class="card card-accent">
+          <div class="card-eyebrow">Implicação 3</div>
+          <h4>O ganho é no ciclo, não no output</h4>
+          <p>Não é sobre "produzir mais comunicado". É sobre encurtar o ciclo: o relatório de vendas de 4h vira 40 min; a resposta ao franqueado sai na hora, não no dia seguinte. Aí mora o retorno.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Referência canônica</div>
+        <p>Dado global: <strong>26,7% dos usuários corporativos apontam "inconfiabilidade" (inconsistência e alucinação) como a preocupação nº 1 com IA no trabalho</strong> — <em>Anthropic Economic Index, jun/2026</em>. É exatamente o problema que o método PCTFL+ (tópico 7) foi feito pra resolver.</p>
+      </div>
+    </section>
+
+    <!-- ============ 02 ============ -->
+    <section id="s2" class="block">
+      <div class="block-num">02</div>
+      <h2>O que a IA faz por você — em 3 zonas do que você sabe</h2>
+      <p class="block-lead">
+        O psicólogo <strong>Daniel Kahneman</strong> batizou uma armadilha do pensamento humano de <strong>WYSIATI</strong> — <em>"What You See Is All There Is"</em>: decidimos com base só no que enxergamos. Com IA, isso vira ferramenta prática. Seu conhecimento tem 3 zonas — e a IA opera em cada uma de um jeito.
+      </p>
+
+      <div class="card-grid-3">
+        <div class="card">
+          <span class="card-tag tag-verde">Zona verde</span>
+          <h4>Sei que sei</h4>
+          <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px">— o que você domina</p>
+          <p>A IA <strong>padroniza</strong> o que você já faz bem. Você sabe montar o relatório semanal de vendas por loja; ela produz a v1 no seu padrão em 5 min.</p>
+          <p style="margin-top:12px"><strong>Ganho:</strong> velocidade em coisa que já era operacional.</p>
+        </div>
+        <div class="card">
+          <span class="card-tag tag-amarelo">Zona amarela</span>
+          <h4>Sei que não sei</h4>
+          <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px">— o buraco que você reconhece</p>
+          <p>A IA <strong>acelera o aprendizado</strong>. Você sabe que precisa entender uma resolução da ANVISA sobre rotulagem; ela explica, dá exemplos, sugere leitura.</p>
+          <p style="margin-top:12px"><strong>Ganho:</strong> você chega mais preparado à mesa.</p>
+        </div>
+        <div class="card">
+          <span class="card-tag tag-vermelho">Zona vermelha</span>
+          <h4>Não sei que não sei</h4>
+          <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px">— o ponto cego</p>
+          <p>A IA <strong>expande o campo de visão</strong>. "Que perguntas eu deveria fazer sobre a queda de vendas na Bahia?" — ela sugere ângulos que você não considerou.</p>
+          <p style="margin-top:12px"><strong>Ganho:</strong> menos surpresa depois.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Aplicação prática</div>
+        <p>Quem só usa a <strong>zona verde</strong> está subutilizando a IA. A vantagem competitiva mora nas outras duas — e o método PCTFL+ (que você vai ver adiante) é o que destrava as três.</p>
+      </div>
+    </section>
+
+    <!-- ============ 03 ============ -->
+    <section id="s3" class="block">
+      <div class="block-num">03</div>
+      <h2>Delegação × Estruturação do Pensamento — o corte executivo</h2>
+      <p class="block-lead">
+        Duas famílias de uso completamente diferentes. Iniciantes só usam a primeira. Quem tira valor real navega as duas.
+      </p>
+
+      <div class="card-grid-2">
+        <div class="card card-accent">
+          <div class="card-eyebrow">Família 1</div>
+          <h4>🎯 Delegação Inteligente — transferir execução</h4>
+          <p><strong>Uso:</strong> tarefa que segue padrão. Resumo de reunião de rede, comunicado semanal, triagem de currículo, primeira versão de post pra loja.</p>
+          <p><strong>Ganho:</strong> 30-60 min por entregável, direto na sua agenda.</p>
+          <p><strong>Prompt típico:</strong></p>
+          <div class="prompt-box" style="margin-top:8px;font-size:12.5px">Resuma esta transcrição da reunião de franqueados
+em 5 bullets, com decisões e responsáveis.</div>
+        </div>
+        <div class="card card-accent">
+          <div class="card-eyebrow">Família 2</div>
+          <h4>🧠 Estruturação do Pensamento — pensar junto</h4>
+          <p><strong>Uso:</strong> decisão difícil, cenário de risco, defesa de argumento. A IA vira sócio analítico, não copista.</p>
+          <p><strong>Ganho:</strong> decisões mais seguras + você chega mais preparado.</p>
+          <p><strong>Prompt típico:</strong></p>
+          <div class="prompt-box" style="margin-top:8px;font-size:12.5px">Assuma o papel de um franqueado cético.
+Aponte os 3 motivos mais prováveis desta
+campanha falhar. Não suavize. [Cole a proposta]</div>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <div class="callout-title">Diagnóstico rápido</div>
+        <p>Se você só faz Delegação hoje, está operando em <strong>~40% do potencial</strong> da ferramenta. A outra metade é onde a IA vira parceiro de decisão — não digitadora rápida.</p>
+      </div>
+    </section>
+
+    <!-- ============ 04 ============ -->
+    <section id="s4" class="block">
+      <div class="block-num">04</div>
+      <h2>Os 3 modos de uso — Autopiloto, Colaboração, Manual</h2>
+      <p class="block-lead">
+        Três formas de a IA entrar no seu processo — cada uma com um <strong>loop</strong> distinto. Este vocabulário te acompanha do M1 ao M5. A matriz abaixo resolve 90% das decisões.
+      </p>
+
+      <h3>Matriz: Impacto × Rotina</h3>
+      <div class="matriz">
+        <div class="matriz-corner"></div>
+        <div class="matriz-head">Decisão única · não se repete</div>
+        <div class="matriz-head">Processo que se repete</div>
+
+        <div class="matriz-row-label">Impacto<br>alto ↑</div>
+        <div class="matriz-cell">
+          <div class="matriz-cell-title">🖐 Manual</div>
+          <div class="matriz-cell-desc">IA fica fora — decisão e assinatura são suas.</div>
+          <div class="matriz-cell-ex">Aprovar abertura de nova unidade · desligar franqueado · fechar contrato de fornecedor estratégico · aprovar plano de expansão internacional.</div>
+        </div>
+        <div class="matriz-cell">
+          <div class="matriz-cell-title">🤝 Colaboração</div>
+          <div class="matriz-cell-desc">IA prepara, você desafia, IA reformula, você decide.</div>
+          <div class="matriz-cell-ex">Comitê mensal de rede · revisão de KPIs críticos · análise de campanha sazonal (Dia dos Namorados, Verão) · plano de contingência de ruptura.</div>
+        </div>
+
+        <div class="matriz-row-label">Impacto<br>baixo</div>
+        <div class="matriz-cell">
+          <div class="matriz-cell-title">🤝 Colaboração</div>
+          <div class="matriz-cell-desc">Você conduz o raciocínio; a IA sugere ângulos.</div>
+          <div class="matriz-cell-ex">Briefing pra proposta de nova praça · análise ad-hoc de reclamação no iFood · viabilidade de fornecedor novo de embalagem.</div>
+        </div>
+        <div class="matriz-cell">
+          <div class="matriz-cell-title">🤖 Autopiloto <span class="matriz-cell-here">comece aqui</span></div>
+          <div class="matriz-cell-desc">Você define o padrão 1x → IA repete → você confere em 5 min.</div>
+          <div class="matriz-cell-ex">Relatório semanal de vendas por unidade · ata de reunião de área · resposta a avaliação Google (rascunho) · comunicado padrão de rede · pauta semanal de 1×1.</div>
+        </div>
+      </div>
+
+      <h3>Como funciona cada modo</h3>
+      <ul>
+        <li><strong>🖐 Manual</strong> — A IA <strong>fica fora do processo</strong>. Pode ajudar antes (contexto) ou depois (registro), mas a decisão e a assinatura são suas.</li>
+        <li><strong>🤝 Colaboração</strong> — IA prepara síntese → você desafia → IA reformula → você decide. <strong>Você conduz.</strong> Sua expertise da área é o que trava o resultado.</li>
+        <li><strong>🤖 Autopiloto</strong> — Você define o padrão <strong>uma vez</strong> → IA repete todo ciclo → você confere em 5 min e assina. <strong>3 processos assim = seu 1º ganho de ciclo real.</strong></li>
+      </ul>
+
+      <div class="callout callout-info">
+        <div class="callout-title">💡 Se você viu a ementa, é a mesma coisa com outro nome</div>
+        <p>A ementa fala em <strong>Copiloto · Automação · Agente</strong>. Aqui usamos <strong>Colaboração · Autopiloto · Manual</strong> — nomes mais precisos pra este treino:</p>
+        <ul>
+          <li><strong>Colaboração</strong> = Copiloto da ementa (IA te ajuda a pensar, você conduz)</li>
+          <li><strong>Autopiloto</strong> = Automação da ementa (IA faz o rascunho, você revisa e assina)</li>
+          <li><strong>Manual</strong> = a IA fica fora (decisão sobre pessoa, contrato, expansão) — não estava na ementa; adicionamos por rigor</li>
+          <li><strong>Agente</strong> da ementa (IA executa <strong>fora do chat</strong>, mexe em arquivos, roda tarefas) — é o assunto do <strong>M3 e M4</strong>. Fica pra depois.</li>
+        </ul>
+      </div>
+
+      <div class="callout callout-warn">
+        <div class="callout-title">Regra de ouro</div>
+        <p>Quanto mais no canto <strong>inferior-direito</strong> (processo repetido + baixo impacto de erro pontual) — mais <strong>Autopiloto</strong>. É onde o retorno aparece primeiro. Quanto mais no canto <strong>superior-esquerdo</strong> (decisão única + alto impacto) — mais <strong>Manual</strong>. Sua atenção é o recurso escasso: delegue onde erro se corrige, guarde seu tempo pra decisão que muda o ano.</p>
+      </div>
+    </section>
+
+    <!-- ============ 05 ============ -->
+    <section id="s5" class="block">
+      <div class="block-num">05</div>
+      <h2>Sem contexto × com contexto — a diferença que muda tudo</h2>
+      <p class="block-lead">
+        A regra desde já: <strong>contexto não é enfeite — é o que separa "resposta de biblioteca" de "resposta da sua área".</strong> Mesma pergunta, dois resultados completamente diferentes.
+      </p>
+
+      <div class="compare">
+        <div class="compare-side vago">
+          <div class="label">🔴 Sem contexto</div>
+          <div class="compare-prompt">Me ajude a gerar um plano de ação.</div>
+          <p class="compare-verdict">A IA responde bem — mas <strong>genérico</strong>. Vai voltar com template SMART, matriz 5W2H, cronograma vazio. Serve pra apresentação de MBA, não pra reunião com franqueado na 3ª.</p>
+        </div>
+        <div class="compare-side situado">
+          <div class="label">🟢 Com contexto</div>
+          <div class="compare-prompt">Me ajude a gerar um plano de ação como
+Coordenadora de Operações Comerciais da
+Maria Pitanga (rede de +200 franquias de açaí)
+pra reduzir a ruptura de mix nas unidades do
+Nordeste no próximo trimestre. Time de 3
+supervisores regionais + relação direta com
+40 franqueados. Preciso de algo que caiba em
+1 página, com indicador, dono e prazo, e que
+eu consiga defender na reunião de resultado
+com o CEO.</div>
+          <p class="compare-verdict">Agora vem indicador (% de ruptura), dono (supervisor por regional), prazo (mensal), formato (1 página) e tom (comitê executivo). Fica um <strong>plano</strong>, não um template. Pronto pra defender.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">A regra do M1</div>
+        <p>Contexto não é enfeite — é o que faz a IA responder pra <strong>você</strong>, não pra "qualquer empresa". O método PCTFL+ (tópicos 6 a 8) formaliza isso em 6 elementos que você preenche uma vez e reusa o ano inteiro.</p>
+      </div>
+    </section>
+
+    <!-- ============ 06 ============ -->
+    <section id="s6" class="block">
+      <div class="block-num">06</div>
+      <h2>Um prompt ruim é sempre culpa do humano</h2>
+      <p class="block-lead">
+        A IA é previsível. Entrada vaga → saída vaga. Entrada precisa → saída precisa. <strong>O degrau que muitos não sobem é declarar o que é uma resposta bem-sucedida.</strong> Sem isso, a IA entrega a média da internet — e você reescreve.
+      </p>
+
+      <p>3 casos que qualquer área da Maria Pitanga reconhece:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:35%">🔴 Prompt vago</th>
+              <th style="width:30%">Problema</th>
+              <th style="width:35%">Resultado provável</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><em>"Analise esse relatório aí"</em></td>
+              <td>Sem foco, sem decisão a suportar</td>
+              <td>Resumo genérico, ninguém decide com ele</td>
+            </tr>
+            <tr>
+              <td><em>"Faz um comunicado pros franqueados"</em></td>
+              <td>Sem tese, sem destinatário claro</td>
+              <td>Texto morno, sem posição, franqueado ignora</td>
+            </tr>
+            <tr>
+              <td><em>"Sintetiza esse dashboard de vendas"</em></td>
+              <td>Sem hierarquia do que importa</td>
+              <td>Lista de números sem prioridade — você reescreve</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>O método a seguir — <strong>PCTFL+</strong> — resolve os três. Não é decoração de prompt: é um checklist mental que faz a IA parar de adivinhar.</p>
+    </section>
+
+    <!-- ============ 07 ============ -->
+    <section id="s7" class="block">
+      <div class="block-num">07</div>
+      <h2>PCTFL+ — as 6 camadas do prompt</h2>
+      <p class="block-lead">
+        Cinco camadas clássicas (Papel · Contexto · Tarefa · Formato · Limitações) + uma camada que separa amador de profissional: <strong>Critério de Sucesso</strong>. É a camada que declara <em>quando</em> a resposta é boa — antes de a IA responder.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:8%">Letra</th>
+              <th style="width:18%">Elemento</th>
+              <th style="width:32%">O que define</th>
+              <th style="width:42%">Exemplo · Maria Pitanga</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:var(--accent);font-family:var(--font-mono)">P</strong></td>
+              <td><strong>Papel</strong></td>
+              <td>Quem a IA deve ser</td>
+              <td>Coordenadora de Marketing sênior com experiência em rede de franquias de food service no Brasil.</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--accent);font-family:var(--font-mono)">C</strong></td>
+              <td><strong>Contexto</strong></td>
+              <td>A situação real</td>
+              <td>Campanha de Verão 2027 pra +200 unidades. Foco: aumentar ticket médio da linha de sorbets tropicais. Verba de mídia: R$ 180 mil. 3 semanas pra brief final.</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--accent);font-family:var(--font-mono)">T</strong></td>
+              <td><strong>Tarefa</strong></td>
+              <td>O que fazer (com verbo claro)</td>
+              <td>"Redija o briefing da campanha: separe promessa central, prova, ativação por praça e KPI. Sugira 3 ganchos por região."</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--accent);font-family:var(--font-mono)">F</strong></td>
+              <td><strong>Formato</strong></td>
+              <td>Como entregar</td>
+              <td>1 página: parágrafo de abertura + tabela (Região · Gancho · Ativação · KPI) + fechamento com os 2 pontos que exigem aval do CEO.</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--accent);font-family:var(--font-mono)">L</strong></td>
+              <td><strong>Limitações</strong></td>
+              <td>O que NÃO fazer</td>
+              <td>"Se faltar informação, pergunte. Não invente. Use só os dados do contexto. Não proponha ação que dependa de verba nova."</td>
+            </tr>
+            <tr style="background:var(--accent-soft)">
+              <td><strong style="color:var(--accent);font-family:var(--font-mono)">CS</strong></td>
+              <td><strong>Critério<br>de Sucesso</strong></td>
+              <td>Quando a resposta é boa?</td>
+              <td>O CEO decide sobre os 2 pontos finais sem abrir a apresentação completa da agência.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Regra de ouro</div>
+        <p>Quanto mais você preenche o PCTFL+CS, menos a IA precisa adivinhar — e menos chance de alucinação ou resultado genérico. <strong>O CS é o ponto que mais sobe a qualidade</strong>: transforma "achei ok" em "atende o critério".</p>
+      </div>
+    </section>
+
+    <!-- ============ 08 ============ -->
+    <section id="s8" class="block">
+      <div class="block-num">08</div>
+      <h2>O verbo de ação é o núcleo do T</h2>
+      <p class="block-lead">
+        Todo prompt tem uma "Tarefa". A qualidade da resposta está sempre em <strong>um único lugar: o verbo da Tarefa.</strong> Quando o verbo é vago ("me ajude", "veja"), a IA escolhe sozinha o que fazer — e escolhe pra média. Quando o verbo é preciso ("liste", "compare", "reescreva no tom X"), a IA obedece.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:15%">Área</th>
+              <th style="width:28%">🔴 Verbo vago</th>
+              <th style="width:28%">🟢 Verbo cirúrgico</th>
+              <th style="width:29%">Como muda a resposta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Análise</strong></td>
+              <td class="cell-vermelho"><em>"o que você acha dessa queda de vendas?"</em></td>
+              <td class="cell-verde"><em>"liste 5 hipóteses e a que testaria primeiro"</em></td>
+              <td>🔴 opinião equilibrada, sem próximo passo · 🟢 5 hipóteses priorizadas + o que fazer amanhã</td>
+            </tr>
+            <tr>
+              <td><strong>Decisão</strong></td>
+              <td class="cell-vermelho"><em>"qual fornecedor de embalagem você recomenda?"</em></td>
+              <td class="cell-verde"><em>"compare por custo, prazo, qualidade e risco de ruptura"</em></td>
+              <td>🔴 "recomendo o B" sem lastro · 🟢 tabela comparativa, decisão defensável no comitê</td>
+            </tr>
+            <tr>
+              <td><strong>Comunicação</strong></td>
+              <td class="cell-vermelho"><em>"escreve pros franqueados"</em></td>
+              <td class="cell-verde"><em>"adapte pra 5 linhas de prioridade + 1 CTA"</em></td>
+              <td>🔴 3 parágrafos mornos, sem tese · 🟢 mensagem que o franqueado lê no celular e age</td>
+            </tr>
+            <tr>
+              <td><strong>Diagnóstico</strong></td>
+              <td class="cell-vermelho"><em>"avalie esse resultado da unidade X"</em></td>
+              <td class="cell-verde"><em>"aponte 3 causas prováveis e a que investigaria primeiro"</em></td>
+              <td>🔴 diagnóstico descritivo, sem ação · 🟢 3 hipóteses + próximo passo de validação</td>
+            </tr>
+            <tr>
+              <td><strong>Preparação</strong></td>
+              <td class="cell-vermelho"><em>"prepare essa reunião de convenção"</em></td>
+              <td class="cell-verde"><em>"ensaie 5 objeções de franqueado cético"</em></td>
+              <td>🔴 sumário genérico da reunião · 🟢 5 objeções concretas + rebatida — você chega treinado</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-warn">
+        <div class="callout-title">Regra prática</div>
+        <p>Antes de rodar um prompt, <strong>sublinhe o verbo da sua Tarefa</strong>. Se for <em>"me ajude"</em>, <em>"faça"</em>, <em>"veja"</em>, <em>"melhore"</em> — pare e troque. Só rode com verbo cirúrgico.</p>
+      </div>
+    </section>
+
+    <!-- ============ 09 ============ -->
+    <section id="s9" class="block">
+      <div class="block-num">09</div>
+      <h2>Monte seu prompt agora — ferramenta viva</h2>
+      <p class="block-lead">
+        Chegou a hora da prática. Preencha os 6 campos à esquerda — o prompt monta sozinho à direita. Copie, cole no <strong>Kimi</strong>, <strong>DeepSeek</strong>, <strong>ChatGPT</strong> ou <strong>Claude</strong> e rode. Já vem preenchido com um caso Maria Pitanga como ponto de partida — troque pelo seu.
+      </p>
+
+      <div class="gen">
+        <div class="gen-form">
+          <label>
+            <span class="gen-label">P · Papel</span>
+            <span class="gen-hint">Quem a IA deve ser</span>
+            <textarea id="f-papel" rows="2">Coordenadora de Marketing sênior com experiência em rede de franquias de food service no Brasil.</textarea>
+          </label>
+          <label>
+            <span class="gen-label">C · Contexto</span>
+            <span class="gen-hint">A situação real — números, prazos, quem envolve</span>
+            <textarea id="f-contexto" rows="5">Campanha de Verão 2027 pra as +200 unidades da Maria Pitanga. Foco: aumentar ticket médio da linha de sorbets tropicais. Verba de mídia: R$ 180 mil. Preciso apresentar o brief final ao CEO em 3 semanas. Franqueados do Nordeste têm melhor performance histórica na linha; Sul e Sudeste ainda subutilizam.</textarea>
+          </label>
+          <label>
+            <span class="gen-label">T · Tarefa</span>
+            <span class="gen-hint">O que fazer — comece com verbo cirúrgico</span>
+            <textarea id="f-tarefa" rows="3">Redija o briefing da campanha: separe promessa central, prova, ativação por praça e KPI. Sugira 3 ganchos por região (Nordeste, Sul, Sudeste).</textarea>
+          </label>
+          <label>
+            <span class="gen-label">F · Formato</span>
+            <span class="gen-hint">Como entregar — estrutura, tamanho, seções</span>
+            <textarea id="f-formato" rows="3">1 página: parágrafo de abertura com a promessa central + tabela (Região · Gancho · Ativação · KPI) + fechamento com os 2 pontos que exigem aval do CEO.</textarea>
+          </label>
+          <label>
+            <span class="gen-label">L · Limitações</span>
+            <span class="gen-hint">O que NÃO fazer — inclua sempre "se faltar info, pergunte"</span>
+            <textarea id="f-limitacoes" rows="3">Se faltar informação, pergunte. Não invente. Use apenas os dados do contexto — não crie projeção que os dados não sustentam. Não proponha ação que dependa de verba nova.</textarea>
+          </label>
+          <label>
+            <span class="gen-label">CS · Critério de Sucesso</span>
+            <span class="gen-hint">Quando a resposta é boa? Quem faz o quê depois de ler?</span>
+            <textarea id="f-cs" rows="2">O CEO decide sobre os 2 pontos finais sem abrir a apresentação completa da agência.</textarea>
+          </label>
+        </div>
+
+        <div class="gen-preview">
+          <div class="gen-preview-head">
+            <span class="gen-preview-title">Prompt pronto</span>
+            <div class="gen-actions">
+              <button class="btn btn-ghost" id="btn-limpar" type="button">Limpar</button>
+              <button class="btn btn-primary" id="btn-copiar" type="button">Copiar</button>
+            </div>
+          </div>
+          <div class="gen-output" id="output" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Como avaliar sua resposta</div>
+        <p><strong>Pergunta-teste:</strong> se você enviasse a resposta agora, o destinatário (CEO, franqueado, coordenador) executaria sem te procurar? Se a resposta é "ia me ligar pra perguntar X" — o X faltou no prompt. Ajuste o campo certo (Contexto se falta situação · Limitações se faltou regra · CS se falta clareza de "bom") e rode de novo.</p>
+      </div>
+    </section>
+
+    <!-- ============ 10 ============ -->
+    <section id="s10" class="block">
+      <div class="block-num">10</div>
+      <h2>Do prompt ao assistente persistente — o próximo passo</h2>
+      <p class="block-lead">
+        Você aprendeu a escrever um prompt PCTFL+. O passo seguinte é transformá-lo em um <strong>assistente persistente</strong> — um parceiro especializado que já sabe quem você é e o que você faz, sem você re-explicar a cada nova conversa.
+      </p>
+
+      <h3>Como funciona na prática</h3>
+      <ul>
+        <li>Você abre uma ferramenta com "assistentes customizados" e cria um.</li>
+        <li>Coloca lá o seu <strong>contexto fixo</strong>: seu cargo, sua área, seus indicadores, exemplos do formato que você prefere.</li>
+        <li>Toda conversa nova dentro daquele assistente já entra com esse contexto. Você só descreve a tarefa do momento.</li>
+      </ul>
+
+      <p>Isso existe em vários ecossistemas — o padrão é o mesmo:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ferramenta</th>
+              <th>Empresa</th>
+              <th>Nome do assistente customizado</th>
+              <th>Onde brilha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Claude</strong></td>
+              <td>Anthropic (EUA)</td>
+              <td>Projects</td>
+              <td>Contexto longo, análise de documento, artefato interativo — é o que Rafael vai mostrar ao vivo</td>
+            </tr>
+            <tr>
+              <td><strong>ChatGPT</strong></td>
+              <td>OpenAI (EUA)</td>
+              <td>GPTs personalizados</td>
+              <td>Ecossistema amplo, geração de imagem, versão gratuita popular</td>
+            </tr>
+            <tr>
+              <td><strong>Gemini</strong></td>
+              <td>Google (EUA)</td>
+              <td>Gems</td>
+              <td>Integração nativa com Google Workspace (Docs, Sheets, Gmail)</td>
+            </tr>
+            <tr>
+              <td><strong>Kimi</strong></td>
+              <td>Moonshot AI (China)</td>
+              <td>Kimi+</td>
+              <td>Muito boa em contexto longo (documentos gigantes), <strong>gratuita e sem cadastro pra testar</strong></td>
+            </tr>
+            <tr>
+              <td><strong>DeepSeek</strong></td>
+              <td>DeepSeek (China)</td>
+              <td>—</td>
+              <td>Excelente em raciocínio e código, gratuita, alternativa robusta pra quem não quer pagar</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Nota prática pra este workshop</div>
+        <p><strong>Você vai executar os prompts em Kimi ou DeepSeek</strong> — as duas rodam grátis e cobrem 90% do que precisa. O Claude aparece na tela do Rafael pra mostrar o degrau seguinte: assistentes especializados por processo (Projects) e o que muda quando a ferramenta tem contexto persistente. <strong>O método PCTFL+ funciona em todas — o que muda entre elas é o ecossistema, não o jeito de pedir.</strong></p>
+      </div>
+
+      <div class="callout callout-warn">
+        <div class="callout-title">🟣 O que você leva para a Maria Pitanga na 2ª feira</div>
+        <p>Até sexta-feira, monte seu <strong>primeiro PCTFL+ real</strong> — uma tarefa que se repete no seu dia — e rode em Kimi ou DeepSeek. Salve o prompt em algum lugar (bloco de notas, Google Doc, arquivo do desktop). <strong>Ele vira ativo da sua área</strong> — no próximo módulo você vai aprender a plugar esse prompt num assistente que roda por você.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <p><strong>Workshop IA na Prática · Maria Pitanga</strong> · Módulo 1 de 5 · Instrutor: <a href="https://www.instagram.com/iacomrafael/">Rafael Lima</a> · <a href="https://iacomrafael.com" target="_blank">@iacomrafael</a></p>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // ---------- NAV ATIVA (scroll-spy) ----------
+  var links = document.querySelectorAll('.side-nav-item a');
+  var sections = Array.from(links).map(function(a){
+    return document.querySelector(a.getAttribute('href'));
+  }).filter(Boolean);
+
+  function updateActive(){
+    var scrollY = window.pageYOffset + 120;
+    var current = sections[0];
+    for(var i=0;i<sections.length;i++){
+      if(sections[i].offsetTop <= scrollY) current = sections[i];
+    }
+    links.forEach(function(l){
+      l.classList.toggle('is-active', l.getAttribute('href') === '#'+current.id);
+    });
+  }
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
+
+  // ---------- GERADOR PCTFL+ ----------
+  var fields = ['papel','contexto','tarefa','formato','limitacoes','cs'];
+  var labels = {
+    papel: '# PAPEL',
+    contexto: '# CONTEXTO',
+    tarefa: '# TAREFA',
+    formato: '# FORMATO',
+    limitacoes: '# LIMITAÇÕES',
+    cs: '# CRITÉRIO DE SUCESSO'
+  };
+  var out = document.getElementById('output');
+
+  var defaults = {};
+  fields.forEach(function(k){
+    var el = document.getElementById('f-'+k);
+    defaults[k] = el.value;
+  });
+
+  function render(){
+    var lines = [];
+    fields.forEach(function(k){
+      var v = document.getElementById('f-'+k).value.trim();
+      if(v){
+        lines.push(labels[k]);
+        lines.push(v);
+        lines.push('');
+      }
+    });
+    if(lines.length === 0){
+      out.innerHTML = '<span class="ph">Preencha os campos à esquerda — o prompt monta aqui.</span>';
+    } else {
+      out.textContent = lines.join('\n').trim();
+    }
+    try { localStorage.setItem('mp-m1-gen', JSON.stringify(collect())); } catch(e){}
+  }
+
+  function collect(){
+    var o = {};
+    fields.forEach(function(k){ o[k] = document.getElementById('f-'+k).value; });
+    return o;
+  }
+
+  function restore(){
+    try {
+      var saved = JSON.parse(localStorage.getItem('mp-m1-gen') || 'null');
+      if(saved){
+        fields.forEach(function(k){
+          if(typeof saved[k] === 'string') document.getElementById('f-'+k).value = saved[k];
+        });
+      }
+    } catch(e){}
+  }
+
+  fields.forEach(function(k){
+    document.getElementById('f-'+k).addEventListener('input', render);
+  });
+
+  document.getElementById('btn-limpar').addEventListener('click', function(){
+    fields.forEach(function(k){
+      document.getElementById('f-'+k).value = defaults[k];
+    });
+    render();
+  });
+
+  document.getElementById('btn-copiar').addEventListener('click', function(){
+    var btn = this;
+    var text = out.textContent;
+    if(!text || out.querySelector('.ph')) return;
+    var doCopy = function(){
+      btn.classList.add('copied');
+      btn.textContent = '✓ Copiado';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.textContent = 'Copiar';
+      }, 2000);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(doCopy).catch(function(){
+        // fallback
+        var ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); doCopy(); } catch(e){}
+        document.body.removeChild(ta);
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); doCopy(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+
+  restore();
+  render();
+})();
+</script>
+
+</body>
+</html>
