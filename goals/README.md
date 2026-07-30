@@ -7,8 +7,8 @@ Fonte única do estado do projeto. Antes de qualquer nova onda: ler esta tabela 
 | # | Slug | Status | O que entrega |
 |---|---|---|---|
 | 01 | m2-infra-e-hub | 🟢 concluída | CLAUDE.md, goals/, _shared/, hub M2 (`m2/index.html`), 8 pastas em `exemplos/`, landing raiz |
-| 02 | m2-casos-1-a-4 | ⏳ próxima | radar-reviews · playbook-nova-unidade · health-check-loja · comunicado-rede |
-| 03 | m2-casos-5-a-8 | ⏳ | treinamento-atendente · analise-vendas · ficha-anvisa · diagnostico-dor |
+| 02 | m2-casos-1-a-4 | 🟢 concluída | radar-reviews · playbook-nova-unidade · health-check-loja · comunicado-rede |
+| 03 | m2-casos-5-a-8 | ⏳ próxima | treinamento-atendente · analise-vendas · ficha-anvisa · diagnostico-dor |
 
 ## Convenções
 
