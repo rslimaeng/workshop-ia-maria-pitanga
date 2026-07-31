@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M3 · Primeiros Agentes — Workshop IA Maria Pitanga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F0EEE6;--bg-elev:#FFFFFF;--bg-warm:#E8E6DC;--bg-code:#F5F3EA;
+  --text:#141413;--text-muted:#3D3D3A;--text-dim:#87867F;
+  --border:rgba(20,20,19,.10);--border-strong:rgba(20,20,19,.18);
+  --accent:#6B2E7A;--accent-dark:#4A1F55;--accent-soft:#F0E3EF;
+  --accent-tinted:#FBF7FB;--accent-line:rgba(107,46,122,.20);
+  --success:#2E7D32;--success-soft:#F5F9F5;
+  --warning:#B8860B;--warning-soft:#FCF7E8;
+  --danger:#B85C5C;--danger-soft:#FBF5F5;
+  --radius-sm:6px;--radius:10px;--radius-lg:14px;
+  --shadow-sm:0 1px 2px rgba(20,20,19,.04),0 1px 3px rgba(20,20,19,.06);
+  --shadow-md:0 4px 12px rgba(20,20,19,.06),0 2px 4px rgba(20,20,19,.04);
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono','Menlo',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
+
+.site-header{position:sticky;top:0;z-index:50;background:rgba(240,238,230,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.site-header-inner{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{width:32px;height:32px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;flex-shrink:0}
+.brand-text{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.brand-title{font-weight:600;font-size:14px;color:var(--text)}
+.brand-sub{font-size:12px;color:var(--text-dim)}
+.header-meta{display:flex;align-items:center;gap:8px}
+.chip{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:500;background:var(--bg-warm);color:var(--text-muted);border:1px solid var(--border)}
+.chip-accent{background:var(--accent-soft);color:var(--accent-dark);border-color:var(--accent-line)}
+
+.crumbs{max-width:1280px;margin:0 auto;padding:20px 24px 0;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.02em}
+.crumbs a{color:var(--text-muted)}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 8px}
+
+.layout{max-width:1280px;margin:0 auto;padding:32px 24px 96px;display:grid;grid-template-columns:240px 1fr;gap:56px}
+@media (max-width:900px){.layout{grid-template-columns:1fr;gap:24px;padding:24px 20px 64px}}
+
+.side-nav{position:sticky;top:88px;align-self:start;max-height:calc(100vh - 104px);overflow-y:auto;padding-right:8px}
+@media (max-width:900px){.side-nav{position:static;max-height:none;padding:16px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);overflow-x:auto}}
+.side-nav-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.10em;color:var(--text-dim);margin-bottom:12px;padding-left:12px}
+.side-nav-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+@media (max-width:900px){.side-nav-list{flex-direction:row;flex-wrap:wrap;gap:6px}}
+.side-nav-item a{display:block;padding:8px 12px;font-size:13.5px;line-height:1.4;color:var(--text-muted);text-decoration:none;border-radius:6px;border-left:2px solid transparent;transition:background .15s,color .15s,border-color .15s}
+.side-nav-item a:hover{background:var(--bg-warm);color:var(--text)}
+.side-nav-item a.is-active{color:var(--accent);background:var(--accent-soft);border-left-color:var(--accent);font-weight:500}
+.side-nav-num{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);margin-right:8px;font-weight:400}
+.side-nav-item a.is-active .side-nav-num{color:var(--accent)}
+@media (max-width:900px){.side-nav-num{margin-right:4px}}
+
+.hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
+.hero-eyebrow{font-family:var(--font-mono);font-size:12px;font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:.10em;margin-bottom:20px}
+.hero h1{font-size:44px;line-height:1.1;font-weight:600;color:var(--text);letter-spacing:-.02em;margin-bottom:20px;max-width:780px}
+@media (max-width:640px){.hero h1{font-size:32px}}
+.hero-lead{font-size:19px;line-height:1.55;color:var(--text-muted);max-width:680px;margin-bottom:28px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+
+section.block{padding:56px 0;border-top:1px solid var(--border)}
+section.block:first-of-type{border-top:none;padding-top:16px}
+.block-num{font-family:var(--font-mono);font-size:12px;font-weight:500;color:var(--accent);letter-spacing:.10em;margin-bottom:14px}
+.block h2{font-size:32px;line-height:1.15;font-weight:600;color:var(--text);letter-spacing:-.015em;margin-bottom:16px;max-width:780px}
+@media (max-width:640px){.block h2{font-size:26px}}
+.block h3{font-size:20px;line-height:1.3;font-weight:600;color:var(--text);margin:24px 0 12px;letter-spacing:-.01em}
+.block-lead{font-size:17px;line-height:1.6;color:var(--text-muted);max-width:720px;margin-bottom:24px}
+.block p{margin-bottom:16px;color:var(--text-muted);max-width:720px}
+.block p strong{color:var(--text);font-weight:600}
+.block ul,.block ol{margin:0 0 20px 20px;color:var(--text-muted);max-width:720px}
+.block li{margin-bottom:8px;padding-left:4px}
+.block li strong{color:var(--text)}
+
+/* cards */
+.card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+.card-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.card-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0}
+@media (max-width:720px){.card-grid-2,.card-grid-3{grid-template-columns:1fr}}
+.card-eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+.card h4{font-size:17px;font-weight:600;margin-bottom:10px;color:var(--text);letter-spacing:-.005em}
+.card p{font-size:15px;color:var(--text-muted);margin-bottom:8px;line-height:1.55}
+.card p:last-child{margin-bottom:0}
+.card-tag{display:inline-block;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:.02em;margin-bottom:12px}
+.tag-roxo{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-line)}
+.tag-verde{background:var(--success-soft);color:var(--success);border:1px solid rgba(46,125,50,.20)}
+.tag-vermelho{background:var(--danger-soft);color:var(--danger);border:1px solid rgba(184,92,92,.25)}
+
+/* comparativo vago vs situado */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+@media (max-width:720px){.compare{grid-template-columns:1fr}}
+.compare-side{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px}
+.compare-side.bad{background:var(--warning-soft)}
+.compare-side.good{background:var(--accent-tinted)}
+.compare-l{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px}
+.compare-t{font-size:15px;font-weight:600;margin-bottom:12px;color:var(--text)}
+.compare-side ul{margin:0;padding-left:18px;max-width:none}
+.compare-side li{font-size:13.5px;color:var(--text-muted);margin-bottom:6px;line-height:1.5}
+
+/* 3 partes do agente — diagrama */
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+@media (max-width:720px){.parts{grid-template-columns:1fr}}
+.part{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;position:relative}
+.part-num{font-family:var(--font-mono);font-size:34px;font-weight:500;color:var(--accent);line-height:1;margin-bottom:12px}
+.part h4{font-size:17px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.part p{font-size:14px;color:var(--text-muted);margin-bottom:8px;line-height:1.5}
+.part-tag{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:block}
+
+/* painel Claude Projects mockup */
+.mockup{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin:24px 0}
+.mockup-topbar{display:flex;align-items:center;gap:8px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:20px}
+.mockup-dot{width:10px;height:10px;border-radius:50%;background:var(--bg-warm)}
+.mockup-title{margin-left:auto;font-family:var(--font-mono);font-size:11px;color:var(--text-dim);letter-spacing:.06em;text-transform:uppercase}
+.mockup-h{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.mockup-name{font-family:var(--font-mono);font-size:13px;color:var(--accent);margin-bottom:20px;padding:6px 10px;background:var(--accent-soft);border-radius:6px;display:inline-block}
+.mockup-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:720px){.mockup-fields{grid-template-columns:1fr}}
+.mockup-field{background:var(--bg-warm);border:1px dashed var(--border-strong);border-radius:var(--radius);padding:16px 18px}
+.mockup-field-l{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+.mockup-field-t{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+.mockup-field-d{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+.mockup-field code{font-family:var(--font-mono);font-size:11.5px;background:var(--bg-elev);padding:1px 6px;border-radius:4px;color:var(--accent-dark);border:1px solid var(--border)}
+.mockup-chat{margin-top:18px;padding:14px 18px;background:var(--bg-code);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);font-family:var(--font-mono);font-size:13.5px;color:var(--text);line-height:1.5}
+.mockup-chat span.dim{color:var(--text-dim);font-size:11.5px;display:block;margin-bottom:4px}
+
+/* pricing block Claude paga vs grátis */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+@media (max-width:720px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:24px 26px}
+.plan.paid{border-color:var(--accent-line);background:var(--accent-tinted)}
+.plan-l{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px}
+.plan h4{font-size:19px;font-weight:600;color:var(--text);margin-bottom:10px}
+.plan-price{font-family:var(--font-mono);font-size:15px;color:var(--accent);margin-bottom:14px}
+.plan ul{margin:0 0 0 18px;padding:0;max-width:none}
+.plan li{font-size:14px;color:var(--text-muted);margin-bottom:6px;line-height:1.5}
+
+/* callout */
+.callout{padding:22px 26px;border-radius:var(--radius);margin:28px 0}
+.callout-info{background:var(--accent-tinted)}
+.callout-warn{background:var(--warning-soft)}
+.callout-title{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.callout-title::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.callout-warn .callout-title::before{background:var(--warning)}
+.callout p{color:var(--text-muted);font-size:15px;line-height:1.55;margin:0}
+.callout p+p{margin-top:8px}
+
+/* case card destaque */
+.case-card{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;margin:24px 0;box-shadow:var(--shadow-md);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+@media (max-width:720px){.case-card{grid-template-columns:1fr}}
+.case-info{min-width:0}
+.case-l{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.case-t{font-size:22px;font-weight:600;margin-bottom:8px;color:var(--text);letter-spacing:-.01em}
+.case-d{font-size:15px;color:var(--text-muted);margin-bottom:14px}
+.case-tags{display:flex;flex-wrap:wrap;gap:6px}
+.case-btn{padding:14px 24px;background:var(--accent);color:#fff;border-radius:var(--radius);font-weight:600;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;flex-shrink:0;transition:background .18s}
+.case-btn:hover{background:var(--accent-dark);color:#fff}
+
+/* CTA final */
+.cta{background:var(--accent-tinted);border:1px solid var(--accent-line);border-radius:var(--radius-lg);padding:36px 40px;margin:32px 0;text-align:center}
+.cta h3{font-size:24px;font-weight:600;margin-bottom:12px;color:var(--text);letter-spacing:-.01em}
+.cta p{font-size:16px;color:var(--text-muted);margin:0 auto 20px;max-width:560px}
+.cta-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:left;max-width:720px;margin:20px auto 0}
+@media (max-width:640px){.cta-fields{grid-template-columns:1fr}}
+.cta-field{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.cta-field-l{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px}
+.cta-field-d{font-size:13px;color:var(--text-muted);line-height:1.5}
+
+/* nav bottom */
+.nav-bottom{display:flex;justify-content:space-between;align-items:center;padding:40px 0;margin-top:56px;border-top:1px solid var(--border)}
+.nav-link{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:var(--radius);transition:background .18s}
+.nav-link:hover{background:var(--bg-warm)}
+.nav-link-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim)}
+.nav-link-title{font-size:15px;font-weight:600;color:var(--text)}
+.nav-link.next{text-align:right;align-items:flex-end}
+
+.site-footer{padding:24px 0 48px;color:var(--text-dim);font-size:13px;text-align:center;border-top:1px solid var(--border)}
+.site-footer a{color:var(--text-muted);font-weight:500}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="../" class="brand" style="color:var(--text);text-decoration:none">
+      <div class="brand-mark">MP</div>
+      <div class="brand-text">
+        <div class="brand-title">Workshop IA · Maria Pitanga</div>
+        <div class="brand-sub">Rafael Lima · @iacomrafael</div>
+      </div>
+    </a>
+    <div class="header-meta">
+      <span class="chip chip-accent">Módulo 3 · Primeiros Agentes</span>
+    </div>
+  </div>
+</header>
+
+<div class="crumbs">
+  <a href="../">Home</a>
+  <span class="sep">›</span>
+  <span>Módulo 3 · Primeiros Agentes</span>
+</div>
+
+<div class="layout">
+
+  <aside class="side-nav" aria-label="Sumário do módulo">
+    <div class="side-nav-label">Neste módulo</div>
+    <ul class="side-nav-list">
+      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>O que é um agente</a></li>
+      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>Chat solto × agente pronto</a></li>
+      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>As 3 partes de todo agente</a></li>
+      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">04</span>Onde monta na prática</a></li>
+      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">05</span>Caso-âncora MP</a></li>
+      <li class="side-nav-item"><a href="#s6"><span class="side-nav-num">06</span>Paga × gratuita</a></li>
+      <li class="side-nav-item"><a href="#s7"><span class="side-nav-num">07</span>Seu primeiro agente</a></li>
+    </ul>
+  </aside>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-eyebrow">Módulo 3 · Criando seu primeiro agente de IA</div>
+      <h1>Quando a tarefa se repete toda semana, você não escreve prompt — você monta um agente.</h1>
+      <p class="hero-lead">
+        No M2 você aprendeu a escrever um bom prompt. Aqui a lógica muda: em vez de reenviar o mesmo prompt gigante toda vez, você <strong>monta um agente uma única vez</strong> — papel fixo, contexto fixo — e depois o comando é uma frase. É o que Claude Projects, Gemini Gems e Custom GPTs entregam.
+      </p>
+      <div class="hero-meta">
+        <span class="chip">15-20 min de leitura</span>
+        <span class="chip">1 caso-âncora prático</span>
+        <span class="chip chip-accent">Ferramenta em foco · Claude Projects</span>
+      </div>
+    </section>
+
+    <section id="s1" class="block">
+      <div class="block-num">01 · CONCEITO</div>
+      <h2>O que é um agente, na prática</h2>
+      <p class="block-lead">
+        Sem jargão: um agente é <strong>uma conversa com a IA já preparada pra uma tarefa específica</strong>. Você não precisa explicar quem ela é toda vez, o que precisa fazer, nem em que formato entregar. Ela já sabe. Você só entrega o dado da vez e diz "vai".
+      </p>
+
+      <div class="card-grid-3">
+        <div class="card">
+          <span class="card-tag tag-roxo">É</span>
+          <h4>Uma conversa preparada</h4>
+          <p>Um "chat" que já vem com papel, regras e modelo colados no cérebro dele antes de você digitar.</p>
+        </div>
+        <div class="card">
+          <span class="card-tag tag-roxo">É</span>
+          <h4>Reutilizável toda semana</h4>
+          <p>Você configura uma vez. Toda segunda-feira só cola o excel novo e pede pra rodar.</p>
+        </div>
+        <div class="card">
+          <span class="card-tag tag-roxo">É</span>
+          <h4>Padronizado</h4>
+          <p>Entrega no mesmo formato sempre. Sua rede vê o mesmo relatório de todo mundo — não 20 estilos diferentes.</p>
+        </div>
+      </div>
+
+      <div class="card-grid-3">
+        <div class="card">
+          <span class="card-tag tag-vermelho">Não é</span>
+          <h4>Um robô que decide sozinho</h4>
+          <p>Ele não "sabe" da sua rede além do que você colou dentro dele. Sem contexto, é chat comum.</p>
+        </div>
+        <div class="card">
+          <span class="card-tag tag-vermelho">Não é</span>
+          <h4>Coisa só de programador</h4>
+          <p>Claude Projects, Gemini Gems e Custom GPTs são interfaces visuais. Zero código.</p>
+        </div>
+        <div class="card">
+          <span class="card-tag tag-vermelho">Não é</span>
+          <h4>Diferente do que você já viu</h4>
+          <p>É o mesmo modelo do M2. Só que agora com o system prompt e o contexto <strong>salvos</strong>.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Onde encaixa nos 3 modos do M1</div>
+        <p>Agente é ferramenta de <strong>Autopiloto</strong> — tarefa repetitiva, formato padronizado, risco baixo. Se a tarefa é de alta responsabilidade (contrato, decisão de investimento, comunicado à rede), você não delega no autopiloto — você mantém em Colaboração ou Manual. Agente ajuda a acelerar o Autopiloto sem que ele vire descuido.</p>
+      </div>
+    </section>
+
+    <section id="s2" class="block">
+      <div class="block-num">02 · CONTRASTE</div>
+      <h2>Chat solto × agente pronto — o mesmo pedido, resultados diferentes</h2>
+      <p class="block-lead">
+        Imagine que toda segunda de manhã você precisa apresentar o fechamento da semana da sua loja. O dado é o mesmo, a estrutura do relatório é a mesma, o formato de entrega é o mesmo. Vamos ver a diferença de mandar isso pro chat solto vs. pro agente pronto.
+      </p>
+
+      <div class="compare">
+        <div class="compare-side bad">
+          <div class="compare-l">Sem agente · chat solto</div>
+          <div class="compare-t">"Oi. Segue o excel de vendas. Faz um resumo pra mim, por favor."</div>
+          <ul>
+            <li>Resposta genérica: "vendas subiram, ticket estável"</li>
+            <li>Formato diferente toda semana (às vezes lista, às vezes tabela, às vezes texto corrido)</li>
+            <li>Não sabe que Bowl Cupuaçu Sertanejo é lançamento recente da rede</li>
+            <li>Recomendação vaga: "otimizar o mix de produtos"</li>
+            <li>Você precisa reescrever o mesmo contexto toda semana</li>
+          </ul>
+        </div>
+        <div class="compare-side good">
+          <div class="compare-l">Com agente · Claude Projects</div>
+          <div class="compare-t">"Segue o excel. Gera o relatório."</div>
+          <ul>
+            <li>Entrega HTML no padrão MP com 6 blocos fixos</li>
+            <li>Manchete afiada + 3 big numbers com % vs. semana anterior</li>
+            <li>Cita produto pelo nome exato — reconhece Cupuaçu como novo</li>
+            <li>Recomendação com <strong>produto + dia + hora + KPI</strong></li>
+            <li>Você só troca o excel — o resto o agente já sabe</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="margin-top:16px">
+        Não é a IA que ficou "melhor". É que <strong>você poupou ela do trabalho de adivinhar</strong> — quem ela é, qual o modelo, qual o padrão da rede. E poupou <strong>você</strong> do trabalho de explicar tudo de novo toda segunda.
+      </p>
+    </section>
+
+    <section id="s3" class="block">
+      <div class="block-num">03 · ANATOMIA</div>
+      <h2>Todo agente tem 3 partes fixas</h2>
+      <p class="block-lead">
+        Não importa se é Claude Projects, Gemini Gems ou Custom GPT — a estrutura é a mesma. Muda o nome do campo, muda a marca. A anatomia é essa:
+      </p>
+
+      <div class="parts">
+        <div class="part">
+          <div class="part-num">01</div>
+          <h4>Papel (system prompt)</h4>
+          <p>Quem o agente é, como pensa, o que ele nunca faz. É a "personalidade" dele.</p>
+          <p><em>Exemplo MP:</em> "Head de Operações da rede, 12 anos consolidando resultados de food service."</p>
+          <span class="part-tag">Vai no campo · Instructions</span>
+        </div>
+        <div class="part">
+          <div class="part-num">02</div>
+          <h4>Contexto de referência</h4>
+          <p>Modelo, glossário, regras, manual, cardápio — tudo que ele precisa consultar toda vez.</p>
+          <p><em>Exemplo MP:</em> Modelo oficial do relatório semanal em 6 blocos, cardápio âncora, benchmark da rede.</p>
+          <span class="part-tag">Vai no campo · Project knowledge</span>
+        </div>
+        <div class="part">
+          <div class="part-num">03</div>
+          <h4>Comando de uso</h4>
+          <p>A frase curta que você manda no chat toda vez que quer rodar o agente. Com o dado específico da vez.</p>
+          <p><em>Exemplo MP:</em> "Segue o excel. Gera o relatório."</p>
+          <span class="part-tag">Vai no chat · toda semana</span>
+        </div>
+      </div>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Regra prática pra saber onde cada coisa vai</div>
+        <p><strong>Se não muda a cada uso →</strong> vai no <strong>papel</strong> ou no <strong>contexto</strong>. <strong>Se muda a cada uso →</strong> vai no <strong>comando</strong>. Se você tá se pegando repetindo a mesma explicação toda vez que abre o chat, aquilo deveria estar no papel — não no comando.</p>
+      </div>
+    </section>
+
+    <section id="s4" class="block">
+      <div class="block-num">04 · FERRAMENTA</div>
+      <h2>Onde você monta na prática · Claude Projects</h2>
+      <p class="block-lead">
+        Foco desta aula é Claude Projects — a ferramenta que o Rafael usa em sala. A lógica é idêntica pra Gemini Gems e Custom GPTs (só muda a marca e o nome dos campos). Você abre o Claude, clica em <strong>Projects</strong> → <strong>+ Create project</strong>, e vê algo próximo disto:
+      </p>
+
+      <div class="mockup">
+        <div class="mockup-topbar">
+          <div class="mockup-dot"></div>
+          <div class="mockup-dot"></div>
+          <div class="mockup-dot"></div>
+          <div class="mockup-title">Claude · Projects</div>
+        </div>
+        <div class="mockup-h">Nome do projeto</div>
+        <div class="mockup-name">Agente Relatório Semanal MP</div>
+
+        <div class="mockup-fields">
+          <div class="mockup-field">
+            <div class="mockup-field-l">Campo · Instructions</div>
+            <div class="mockup-field-t">Papel do agente (system prompt)</div>
+            <div class="mockup-field-d">Cole aqui o texto que define quem o agente é. Exemplo: <code>system-prompt.md</code>.</div>
+          </div>
+          <div class="mockup-field">
+            <div class="mockup-field-l">Campo · Project knowledge</div>
+            <div class="mockup-field-t">Contexto de referência (arquivos)</div>
+            <div class="mockup-field-d">Suba arquivos que ele precisa consultar. Exemplo: <code>modelo-relatorio.md</code>, cardápio, manual.</div>
+          </div>
+        </div>
+
+        <div class="mockup-chat">
+          <span class="dim">Chat da segunda-feira · anexa o excel + digita:</span>
+          Segue o excel de fechamento da semana. Gera o relatório.
+        </div>
+      </div>
+
+      <p>
+        É isso. Nome, dois campos, e o chat de uso. <strong>Sem código, sem integração, sem API.</strong> Na primeira vez leva 15 minutos pra montar. Depois, cada uso dura 30 segundos.
+      </p>
+    </section>
+
+    <section id="s5" class="block">
+      <div class="block-num">05 · CASO-ÂNCORA</div>
+      <h2>O caso que vale pra qualquer área: Agente Relatório Semanal MP</h2>
+      <p class="block-lead">
+        Todo mundo na Maria Pitanga (gerente de loja, supervisor regional, coordenador de área) precisa apresentar resultado uma vez por semana ou por mês. E cada um faz de um jeito. O caso-âncora do M3 resolve isso: monta o agente uma vez, e todo mundo entrega no mesmo formato.
+      </p>
+
+      <div class="case-card">
+        <div class="case-info">
+          <div class="case-l">Caso completo · pronto pra baixar</div>
+          <div class="case-t">Agente Relatório Semanal MP</div>
+          <div class="case-d">4 arquivos (system prompt · contexto · comando · insumo xlsx com 2.946 vendas de 1 loja em 4 semanas). Você monta seu agente no Claude Projects em ~15 min e nunca mais escreve prompt de fechamento.</div>
+          <div class="case-tags">
+            <span class="chip">Gerente de loja</span>
+            <span class="chip">Supervisor regional</span>
+            <span class="chip">Coordenador</span>
+            <span class="chip chip-accent">Autopiloto</span>
+          </div>
+        </div>
+        <a class="case-btn" href="exemplos/agente-relatorio-semanal/">Abrir o caso →</a>
+      </div>
+
+      <p>
+        No caso, você tem tudo mastigado: o system prompt já escrito (é só copiar), o modelo do relatório em 6 blocos (só subir), o comando de uso pronto (uma frase) e um excel realista de fechamento com narrativa embutida (semana 3 tem recorde de fluxo, semana 4 tem quebra de congelador — o agente identifica).
+      </p>
+    </section>
+
+    <section id="s6" class="block">
+      <div class="block-num">06 · PAGA × GRATUITA</div>
+      <h2>Vale a pena ter Claude Pro? E se eu só tenho a gratuita?</h2>
+      <p class="block-lead">
+        A ferramenta de agente (Projects, Gems, Custom GPTs) é benefício de plano pago. Isso não significa que sem plano pago não dá — significa que o esforço muda de lugar.
+      </p>
+
+      <div class="plans">
+        <div class="plan paid">
+          <div class="plan-l">Claude Pro · Gemini Advanced · ChatGPT Plus</div>
+          <h4>Com Projects / Gems / Custom GPTs</h4>
+          <div class="plan-price">~R$ 100/mês por plano</div>
+          <ul>
+            <li>Monta uma vez, usa pra sempre</li>
+            <li>Cada agente novo é 15 min de setup</li>
+            <li>Comando de uso é 1 frase</li>
+            <li>Arquivos de referência ficam salvos</li>
+            <li>Você pode ter vários agentes lado a lado (relatório semanal, resposta a reclamação, briefing de fornecedor)</li>
+          </ul>
+        </div>
+        <div class="plan">
+          <div class="plan-l">Versão gratuita · Claude free · Gemini free · ChatGPT free</div>
+          <h4>Sem Projects · "forçando a barra"</h4>
+          <div class="plan-price">R$ 0/mês</div>
+          <ul>
+            <li>Toda nova conversa, você cola o system prompt + contexto <strong>antes</strong> do comando</li>
+            <li>É repetitivo — mas o efeito é o mesmo</li>
+            <li>Ajuda ter os arquivos salvos numa pasta local pra copiar rápido</li>
+            <li>Vira uma "receita": abre conversa → cola bloco 1 → cola bloco 2 → cola comando + anexa excel</li>
+            <li>Limitação real: modelos gratuitos são mais fracos que os pagos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-warn">
+        <div class="callout-title">Argumento pra levar pra sua liderança</div>
+        <p>Se o agente economiza 45 min por semana pra 1 pessoa, são <strong>~3h/mês</strong>. Se sua liderança usa uma vez por semana + 5 gerentes de loja usam também, são <strong>~18h/mês</strong> só nesse agente. Um plano pago paga o próprio custo em economia de tempo — o argumento não é "IA fancy", é <strong>hora de gerente que volta pro salão</strong>.</p>
+      </div>
+    </section>
+
+    <section id="s7" class="block">
+      <div class="block-num">07 · CHAMADA</div>
+      <h2>Qual seria o seu primeiro agente?</h2>
+      <p class="block-lead">
+        Antes de sair montando 10 agentes, escolhe 1. O melhor primeiro agente é aquele que resolve uma tarefa que <strong>você faz toda semana</strong> e que <strong>tem formato repetido</strong>. Preenche esses 3 campos mentalmente:
+      </p>
+
+      <div class="cta">
+        <h3>Escolha uma tarefa da sua semana pra virar agente</h3>
+        <p>Não precisa ser bombástica. O melhor primeiro agente é o mais chato e repetitivo — porque ele vai ser rodado toda semana e o ganho compõe.</p>
+        <div class="cta-fields">
+          <div class="cta-field">
+            <div class="cta-field-l">01 · Que tarefa se repete toda semana?</div>
+            <div class="cta-field-d">Fechamento de loja · resposta a reclamação · briefing de fornecedor · comunicado à rede…</div>
+          </div>
+          <div class="cta-field">
+            <div class="cta-field-l">02 · Qual o formato de entrega fixo?</div>
+            <div class="cta-field-d">Relatório de 1 página · e-mail padrão · post pra rede · card pra grupo…</div>
+          </div>
+          <div class="cta-field">
+            <div class="cta-field-l">03 · Qual o dado que muda a cada uso?</div>
+            <div class="cta-field-d">O excel da semana · o nome do cliente · o produto novo · o resultado do mês…</div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Se você conseguiu responder os 3 campos, você já tem um agente pronto pra montar. O papel é a pessoa que faz essa tarefa hoje. O contexto é o modelo do formato de entrega. O comando é a frase curta com o dado da vez.
+      </p>
+
+      <div class="callout callout-info">
+        <div class="callout-title">Próximo passo prático</div>
+        <p>Abra o <a href="exemplos/agente-relatorio-semanal/">caso-âncora do M3</a>, baixe os 4 arquivos, monte no Claude Projects seguindo o passo 4 do caso. Rode uma vez, veja o resultado, e depois refaça pra <strong>sua</strong> tarefa (troca o papel, troca o modelo, troca o insumo — mantém a estrutura). Em ~40 min você tem o seu primeiro agente rodando.</p>
+      </div>
+    </section>
+
+    <nav class="nav-bottom">
+      <a href="../m2/" class="nav-link back">
+        <span class="nav-link-label">← módulo anterior</span>
+        <span class="nav-link-title">M2 · Mão na Massa (8 casos)</span>
+      </a>
+      <a href="exemplos/agente-relatorio-semanal/" class="nav-link next">
+        <span class="nav-link-label">próximo →</span>
+        <span class="nav-link-title">Caso-âncora · Agente Relatório Semanal</span>
+      </a>
+    </nav>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>
+      Workshop IA · Maria Pitanga · Rafael Lima
+      · <a href="https://www.instagram.com/iacomrafael/" target="_blank" rel="noopener">@iacomrafael</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var links = document.querySelectorAll('.side-nav-item a');
+  var sections = Array.from(links).map(function(a){
+    return document.querySelector(a.getAttribute('href'));
+  }).filter(Boolean);
+  function updateActive(){
+    var scrollY = window.pageYOffset + 120;
+    var current = sections[0];
+    for(var i=0;i<sections.length;i++){
+      if(sections[i].offsetTop <= scrollY) current = sections[i];
+    }
+    links.forEach(function(l){
+      l.classList.toggle('is-active', l.getAttribute('href') === '#'+current.id);
+    });
+  }
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
+})();
+</script>
+
+</body>
+</html>
