@@ -61,9 +61,14 @@ os números do briefing. Usar tabela formatada em preto/branco (padrão oficial)
 
 ### 1.5 Rotulagem frontal (RDC 429/2020)
 Lupa preta com fundo branco indicando "ALTO EM AÇÚCARES ADICIONADOS" se o
-produto ultrapassar o limite de 25g açúcar adicionado / 100g. Avaliar o
-briefing e decidir — mostrar o cálculo em rodapé pequeno pra Cristiane
-conferir. Formato oficial da lupa (não desenhar emoji — usar CSS/SVG).
+produto ultrapassar o limite de **15g de açúcar adicionado por 100g** em
+alimento sólido (regra RDC 429/2020 · Anexo XXVII). Avaliar o briefing e
+decidir — mostrar o cálculo em rodapé pequeno pra Cristiane conferir.
+Formato oficial da lupa (não desenhar emoji — usar CSS/SVG).
+
+Além disso, na tabela nutricional, calcule o **%VD dos açúcares adicionados**
+usando 50g/dia como referência (RDC 429/2020) — ex: 18g/100g = 36%VD.
+Não deixe essa célula em branco.
 
 ### 1.6 Instruções de conservação
 "Conservar congelado a -18°C. Após aberto, consumir em até 15 dias.

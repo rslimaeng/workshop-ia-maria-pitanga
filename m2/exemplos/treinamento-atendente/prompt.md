@@ -37,13 +37,15 @@ curtos, e uma frase de fecho. Ordem obrigatória:
 4. **Como resolver reclamação em 3 passos** — passo 1 acolher, passo 2 explicar, passo 3 resolver
 5. **O que fazer no primeiro dia** — checklist de 5 ações + próxima etapa
 
-Os slides devem ser navegáveis com setas do teclado ou botões visíveis. Layout:
-título grande no topo, corpo centralizado, footer discreto com "Slide N / 5"
-e a marca Maria Pitanga.
+Os slides devem ser navegáveis com **botões visíveis (anterior/próximo)** —
+setas do teclado só ativam quando o container do deck está visível na
+viewport (evita conflito com scroll da apostila abaixo). Layout: título
+grande no topo, corpo centralizado, footer discreto com "Slide N / 5" e a
+marca Maria Pitanga.
 
 ## BLOCO 2 · Apostila do aluno (formato A4 imprimível)
 Uma seção logo abaixo dos slides, formatada como página A4 imprimível. Contém:
-- Cabeçalho com foto do produto (usar placeholder colorido roxo/creme)
+- Cabeçalho com placeholder do produto: bloco chapado 100×100px em roxo #6B2E7A com label "Bowl MP" em branco (não tentar SVG de bowl — bloco chapado imprime melhor em P&B)
 - Nome do treinamento e nome do atendente (campo em branco pra preencher)
 - Resumo dos 6 momentos em 1 linha cada
 - Espaço pra anotação em cada momento (3 linhas em branco)
@@ -71,7 +73,7 @@ loja que vai rodar o treinamento. Contém, na ordem:
 - Apostila e roteiro em cards com respiro editorial
 - Sem dark mode, sem gradientes, sem emoji decorativo
 - `@media print` embutido: apostila e roteiro imprimem A4 limpo, slides ocultam no print
-- Navegação dos slides via botões visíveis + setas do teclado (esquerda/direita)
+- Navegação dos slides via botões visíveis (sempre) + setas do teclado (só quando o container do deck está visível na viewport)
 - Contador "Slide N de 5" discreto no rodapé de cada slide
 
 # LINGUAGEM
