@@ -10,6 +10,7 @@ Fonte única do estado do projeto. Antes de qualquer nova onda: ler esta tabela 
 | 02 | m2-casos-1-a-4 | 🟢 concluída | radar-reviews · playbook-nova-unidade · health-check-loja · comunicado-rede |
 | 03 | m2-casos-5-a-8 | 🟢 concluída | treinamento-atendente · analise-vendas · ficha-anvisa · diagnostico-dor |
 | 04 | m3-primeiros-agentes | 🟢 concluída | M3 single-page (7 seções) + caso-âncora `agente-relatorio-semanal` (4 arquivos: system prompt, contexto, comando, xlsx 4 semanas 2.946 linhas) |
+| 05 | m4-automacao-cowork-n8n | 🟢 concluída | M4 single-page (8 seções): Cowork × n8n em paralelo, framework Gatilho→Execução→Entrega, matriz de escolha, 2 cards de case pra demo ao vivo do Rafael (Cowork organiza pasta + n8n triagem CV) |
 
 ## Convenções
 
