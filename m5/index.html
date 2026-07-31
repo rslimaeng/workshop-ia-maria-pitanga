@@ -472,7 +472,6 @@ section.block:first-of-type{border-top:none;padding-top:16px}
           <button class="canvas-btn primary" id="btn-copy">
             <span>⧉</span> Copiar linha pra planilha
           </button>
-          <button class="canvas-btn" id="btn-preview">Ver preview da linha</button>
           <button class="canvas-btn ghost" id="btn-clear">Limpar rascunho</button>
         </div>
 
@@ -489,11 +488,6 @@ section.block:first-of-type{border-top:none;padding-top:16px}
             <span class="tsv-schema-col">sucesso 30d</span>
             <span class="tsv-schema-col">data</span>
           </div>
-        </div>
-
-        <div class="tsv-wrap" id="tsv-wrap" hidden>
-          <div class="tsv-l">Preview · formato TSV (uma linha)</div>
-          <div class="tsv-preview" id="tsv-preview"></div>
         </div>
       </div>
     </section>
@@ -689,15 +683,6 @@ section.block:first-of-type{border-top:none;padding-top:16px}
       }
       document.body.removeChild(ta);
     }
-    // já mostra o preview
-    document.getElementById('tsv-preview').textContent = tsv;
-    document.getElementById('tsv-wrap').hidden = false;
-  });
-
-  document.getElementById('btn-preview').addEventListener('click', function(){
-    var tsv = buildTSV();
-    document.getElementById('tsv-preview').textContent = tsv;
-    document.getElementById('tsv-wrap').hidden = false;
   });
 
   document.getElementById('btn-clear').addEventListener('click', function(){
@@ -707,7 +692,6 @@ section.block:first-of-type{border-top:none;padding-top:16px}
       if(el) el.value = '';
     });
     try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-    document.getElementById('tsv-wrap').hidden = true;
     savedStatus.textContent = 'Rascunho limpo';
     showToast('Rascunho limpo');
   });
