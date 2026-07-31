@@ -11,6 +11,7 @@ Fonte única do estado do projeto. Antes de qualquer nova onda: ler esta tabela 
 | 03 | m2-casos-5-a-8 | 🟢 concluída | treinamento-atendente · analise-vendas · ficha-anvisa · diagnostico-dor |
 | 04 | m3-primeiros-agentes | 🟢 concluída | M3 single-page (7 seções) + caso-âncora `agente-relatorio-semanal` (4 arquivos: system prompt, contexto, comando, xlsx 4 semanas 2.946 linhas) |
 | 05 | m4-automacao-cowork-n8n | 🟢 concluída | M4 single-page (8 seções): Cowork × n8n em paralelo, framework Gatilho→Execução→Entrega, matriz de escolha, 2 cards de case pra demo ao vivo do Rafael (Cowork organiza pasta + n8n triagem CV) |
+| 06 | m5-diagnostico-canvas | 🟢 concluída | M5 single-page (6 seções): 6 gatilhos MP (Robô Humano · Tela em Branco · Detetive · Sparring · Tradutor · Olho Biônico) + Canvas MP interativo 5 blocos com localStorage + export TSV pra colar no Sheets do backlog da rede + compromisso 3 pontos |
 
 ## Convenções
 
