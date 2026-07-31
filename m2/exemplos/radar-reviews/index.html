@@ -418,9 +418,9 @@ a:hover{color:var(--accent-dark)}
 
   <section class="hero">
     <div class="hero-kicker">Caso 01 · Dashboard de voz do cliente</div>
-    <h1>5 lojas · 30 reviews · 1 dashboard pra reunião de segunda</h1>
+    <h1>5 lojas · 150 reviews · 1 dashboard pra reunião de segunda</h1>
     <p class="hero-sub">
-      Você é supervisor de 5 lojas e tem reunião com os 5 gerentes na segunda-feira. Ao invés de ler 30 reviews do Google Maps uma por uma, cola tudo na IA e recebe um mapa: temas recorrentes, heatmap loja × tema, top-3 ações e respostas-padrão prontas. Do "não sei por onde começar" ao "reunião pautada" em 10 minutos.
+      Você é supervisor de 5 lojas e tem reunião com os 5 gerentes na segunda-feira. Ao invés de ler 150 reviews do Google Maps uma por uma, cola tudo na IA e recebe um mapa: temas recorrentes, heatmap loja × tema, top-3 ações e respostas-padrão prontas. Do "não sei por onde começar" ao "reunião pautada" em 10 minutos.
     </p>
     <div class="hero-meta">
       <span class="meta-label">Áreas</span>
@@ -443,10 +443,10 @@ a:hover{color:var(--accent-dark)}
     </div>
     <div class="step-body">
       <p>
-        Você virou supervisor regional de 5 lojas Maria Pitanga na semana passada. Baixou do Google Maps as <strong>30 avaliações mais recentes</strong> — 6 por loja, das últimas 3 semanas — e tem <strong>reunião com os gerentes na segunda 8h</strong>. Ler tudo linha por linha, categorizar na mão, cruzar por loja e tirar conclusão dá 3 horas.
+        Você virou supervisor regional de 5 lojas Maria Pitanga na semana passada. Baixou do Google Maps as <strong>150 avaliações mais recentes</strong> — 30 por loja, das últimas 4 semanas — e tem <strong>reunião com os gerentes na segunda 8h</strong>. Ler tudo linha por linha, categorizar na mão, cruzar por loja e tirar conclusão dá o sábado e o domingo inteiros.
       </p>
       <p>
-        A tarefa é essa: transformar 30 pedaços de texto solto em um mapa visual pra reunião — que temas mais aparecem, quais são de rede vs específicos de uma loja, e o que fazer nas próximas 2 semanas.
+        A tarefa é essa: transformar 150 pedaços de texto solto em um mapa visual pra reunião — que temas mais aparecem, quais são de rede vs específicos de uma loja, e o que fazer nas próximas 2 semanas.
       </p>
       <div class="info-grid">
         <div class="info-card">
@@ -455,7 +455,7 @@ a:hover{color:var(--accent-dark)}
         </div>
         <div class="info-card">
           <div class="info-card-label">Quanto tempo economiza</div>
-          <p>De 3h de leitura + tabulação manual pra ~10 min. Toda semana.</p>
+          <p>De 6-8h de leitura + tabulação manual pra ~10 min. Toda semana.</p>
         </div>
         <div class="info-card">
           <div class="info-card-label">Modo de uso (do M1)</div>
@@ -510,7 +510,7 @@ a:hover{color:var(--accent-dark)}
     </div>
     <div class="step-body">
       <p>
-        Uma planilha xlsx com <strong>30 reviews fictícias</strong> das 5 lojas — cada linha tem data, loja, cidade, autor, nota e o texto da avaliação. É o formato equivalente ao que você exportaria do Google Business Profile na vida real. Todos os dados são inventados para o treinamento.
+        Uma planilha xlsx com <strong>150 reviews fictícias</strong> das 5 lojas (30 por loja) — cada linha tem data, loja, cidade, autor, nota e o texto da avaliação. É o formato equivalente ao que você exportaria do Google Business Profile na vida real. Todos os dados são inventados para o treinamento.
       </p>
 
       <div class="download-card">
@@ -519,7 +519,7 @@ a:hover{color:var(--accent-dark)}
             <div class="download-icon">xls</div>
             insumo-reviews-5-lojas.xlsx
           </div>
-          <div class="download-meta">30 linhas · 6 colunas · ~15 KB</div>
+          <div class="download-meta">150 linhas · 6 colunas · ~17 KB · 30 reviews por loja</div>
         </div>
         <a class="download-btn" href="insumo-reviews-5-lojas.xlsx" download>
           Baixar planilha ↓
@@ -574,7 +574,7 @@ a:hover{color:var(--accent-dark)}
 
       <div class="prompt-box">
         <div class="prompt-toolbar">
-          <span>prompt.md · 68 linhas · PCTFL+ com dados inline</span>
+          <span>prompt.md · 262 linhas · PCTFL+ com 150 reviews inline</span>
           <div class="prompt-toolbar-actions">
             <a class="prompt-btn" href="prompt.md" download>Baixar .md</a>
             <button class="prompt-btn primary" id="btn-copy">Copiar prompt</button>
@@ -590,8 +590,8 @@ grandes redes de food service. Sabe que review isolada é ruído — o que impor
 # CONTEXTO
 Sou supervisor regional de 5 lojas da Maria Pitanga (rede de +200 franquias
 de açaí e gelatos com unidades no Brasil, Portugal e Espanha). Baixei do
-Google Maps as 30 avaliações mais recentes das minhas 5 lojas (6 por loja),
-das últimas 3 semanas.
+Google Maps as 150 avaliações mais recentes das minhas 5 lojas (30 por loja),
+das últimas 4 semanas.
 
 As 5 lojas são:
 - Aldeota (Fortaleza/CE) — loja vitrine, praça nobre
@@ -605,7 +605,7 @@ com um mapa claro: onde tá o problema, o que é padrão de rede vs específico
 de uma loja, e o que a gente aciona nas próximas 2 semanas.
 
 # TAREFA
-Analise as 30 reviews e gere um Artifact HTML self-contained com:
+Analise as 150 reviews e gere um Artifact HTML self-contained com:
 
 1. QUADRO GERAL (topo) — nota média, % negativas, melhor e pior loja
 2. TEMAS RECORRENTES — 5 a 7 temas com frequência, sentimento, trechos
@@ -625,7 +625,7 @@ Confirme em 3 bullets: (a) reviews por loja, (b) leitura macro em 1 parágrafo,
 (c) os 5-7 temas agrupados. Espere meu OK e depois gera o HTML.
 
 ---
-[continua no arquivo prompt.md com os 30 reviews em formato tabela]</div>
+[continua no arquivo prompt.md com os 150 reviews em formato tabela]</div>
       </div>
     </div>
   </section>

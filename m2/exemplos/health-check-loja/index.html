@@ -276,7 +276,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
     </div>
     <div class="step-body">
       <p>
-        Uma planilha xlsx com <strong>2 abas</strong>: (1) 10 métricas quantitativas comparadas com o benchmark da rede, com status verde/amarelo/vermelho e observação por linha; (2) contexto qualitativo dos últimos 30 dias — 7 eventos operacionais + 4 decisões que o supervisor precisa tomar. Dados fictícios pro treinamento.
+        Uma planilha xlsx com <strong>3 abas</strong>: (1) 10 métricas quantitativas mensais comparadas com o benchmark da rede, com status verde/amarelo/vermelho e observação por linha; (2) contexto qualitativo dos últimos 30 dias — 7 eventos operacionais + 4 decisões que o supervisor precisa tomar; (3) <strong>série diária dos 31 dias de julho</strong> com faturamento, ticket, clientes, vendas por produto, absenteísmo e reclamações — base pra IA gerar gráficos de tendência e amarrar cada oscilação a um evento específico. Dados fictícios pro treinamento.
       </p>
 
       <div class="download-card">
@@ -285,7 +285,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
             <div class="download-icon">xls</div>
             insumo-health-check-iguatemi.xlsx
           </div>
-          <div class="download-meta">2 abas · 10 indicadores + contexto · ~22 KB</div>
+          <div class="download-meta">3 abas · 10 métricas + contexto + 31 dias diários · ~11 KB</div>
         </div>
         <a class="download-btn" href="insumo-health-check-iguatemi.xlsx" download>
           Baixar planilha ↓
@@ -293,7 +293,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
       </div>
 
       <div class="download-preview">
-        <div class="download-preview-title">Prévia · algumas linhas da aba 1</div>
+        <div class="download-preview-title">Prévia · aba 1 (métricas × benchmark)</div>
         <table class="download-preview-table">
           <thead>
             <tr>
@@ -321,6 +321,25 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
         </table>
       </div>
 
+      <div class="download-preview" style="margin-top:16px">
+        <div class="download-preview-title">Prévia · aba 3 (série diária, 31 linhas)</div>
+        <table class="download-preview-table">
+          <thead>
+            <tr>
+              <th>Data</th><th>Faturamento</th><th>Ticket</th><th>Clientes</th><th>Cupuaçu</th><th>Nota</th><th>Recl.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>03/07 <span style="color:#B85C5C">▲ lançamento cupuaçu</span></td><td>R$ 4.965</td><td>R$ 21,55</td><td>209</td><td>24</td><td>4,37</td><td>0</td></tr>
+            <tr><td>08/07 <span style="color:#B85C5C">▲ saída Ana</span></td><td>R$ 4.788</td><td>R$ 20,48</td><td>221</td><td>30</td><td>4,32</td><td>1</td></tr>
+            <tr><td>14/07 <span style="color:#B85C5C">▲ reforma shopping</span></td><td>R$ 2.882</td><td>R$ 19,34</td><td>139</td><td>18</td><td>4,26</td><td>1</td></tr>
+            <tr><td>22/07 <span style="color:#B85C5C">▲ saída Rodrigo</span></td><td>R$ 4.590</td><td>R$ 17,82</td><td>272</td><td>28</td><td>4,18</td><td>1</td></tr>
+            <tr><td>25/07 <span style="color:#B85C5C">▲ Bruno começa</span></td><td>R$ 4.055</td><td>R$ 17,25</td><td>226</td><td>25</td><td>4,15</td><td>2</td></tr>
+            <tr style="color:var(--text-dim);font-style:italic"><td colspan="7">… + 25 linhas de série diária no arquivo</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="callout callout-warn" style="margin-top:24px">
         <div class="callout-title">Loja, gerente, funcionários e eventos são fictícios</div>
         <p>A Iguatemi Fortaleza existe como shopping, mas a loja da Maria Pitanga descrita aqui é fictícia. Roberta, Bruno, Ana, Rodrigo — todos inventados. As métricas foram calibradas pra parecer com o padrão que uma loja de shopping com fluxo alto costuma ter quando entra em degradação. Material de treinamento.</p>
@@ -343,7 +362,7 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
 
       <div class="prompt-box">
         <div class="prompt-toolbar">
-          <span>prompt.md · 148 linhas · PCTFL+ com dados inline</span>
+          <span>prompt.md · 193 linhas · PCTFL+ com métricas + contexto + série diária</span>
           <div class="prompt-toolbar-actions">
             <a class="prompt-btn" href="prompt.md" download>Baixar .md</a>
             <button class="prompt-btn primary" id="btn-copy">Copiar prompt</button>
@@ -364,17 +383,20 @@ consigo pensar em plano nenhum". Visita marcada sexta.
 
 # TAREFA
 Gere um Artifact HTML self-contained (A4 imprimível) chamado
-"Health Check · Loja Iguatemi Fortaleza" com 5 seções:
+"Health Check · Loja Iguatemi Fortaleza" com 6 seções:
 
 1. CAPA COM SEMÁFORO GERAL — veredicto grande verde/amarelo/vermelho +
    sumário executivo em 3-4 linhas
 2. RAIO-X DIMENSIONAL — 5 dimensões (Receita, Rentabilidade, Gente,
    Experiência, Operação) pontuadas 0-10 com barra visual
-3. TOP-3 ALAVANCAS — cards grandes com impacto esperado, 3-4 ações
+3. GRÁFICO DE TENDÊNCIA — 2+ mini-gráficos SVG usando a série diária,
+   marcando os eventos-chave (lançamento cupuaçu, saída Ana, reforma,
+   saída Rodrigo, entrada Bruno)
+4. TOP-3 ALAVANCAS — cards grandes com impacto esperado, 3-4 ações
    concretas e responsável
-4. PLANO DE 30 DIAS — cronograma semana a semana (S1-S4) com 2-3 ações
+5. PLANO DE 30 DIAS — cronograma semana a semana (S1-S4) com 2-3 ações
    por semana amarradas às alavancas
-5. PARECER EXECUTIVO ASSINADO — diagnóstico, principal risco, decisão
+6. PARECER EXECUTIVO ASSINADO — diagnóstico, principal risco, decisão
    pedida ao supervisor, assinado Márcio Vasconcelos · Regional CE-Norte
 
 # ESTILO
@@ -392,7 +414,8 @@ crítica, (c) nome das 3 alavancas.
 Espere meu OK e depois gera o HTML.
 
 ---
-[continua no arquivo prompt.md com os 10 indicadores e contexto qualitativo]</div>
+[continua no arquivo prompt.md com 3 abas de dados: 10 métricas × benchmark,
+contexto qualitativo dos 30 dias, série diária dos 31 dias de julho]</div>
       </div>
     </div>
   </section>
