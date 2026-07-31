@@ -506,7 +506,6 @@ contexto qualitativo dos 30 dias, série diária dos 31 dias de julho]</div>
   const content = document.getElementById('prompt-content');
   const toast = document.getElementById('toast');
   async function fetchFullPrompt(){
-    try{ const r = await fetch('prompt.md'); if(r.ok) return await r.text(); }catch(e){}
     return content.textContent;
   }
   function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 2000); }

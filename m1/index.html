@@ -418,6 +418,15 @@ td.cell-vermelho{background:rgba(184,92,92,.05)}
 .spacer-sm{height:12px}
 .spacer{height:24px}
 .text-mono{font-family:var(--font-mono);font-size:13px}
+
+/* nav bottom entre modulos */
+.nav-bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:40px 0;margin-top:56px;border-top:1px solid var(--border)}
+.nav-link{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:var(--radius);transition:background .18s;text-decoration:none}
+.nav-link:hover{background:var(--bg-warm)}
+.nav-link-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim)}
+.nav-link-title{font-size:15px;font-weight:600;color:var(--text)}
+.nav-link.next{text-align:right;align-items:flex-end}
+@media (max-width:640px){.nav-bottom{flex-direction:column;align-items:stretch}.nav-link.next{text-align:left;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -980,6 +989,17 @@ com o CEO.</div>
         <p>Até sexta-feira, monte seu <strong>primeiro PCTFL+ real</strong> — uma tarefa que se repete no seu dia — e rode em Kimi ou DeepSeek. Salve o prompt em algum lugar (bloco de notas, Google Doc, arquivo do desktop). <strong>Ele vira ativo da sua área</strong> — no próximo módulo você vai aprender a plugar esse prompt num assistente que roda por você.</p>
       </div>
     </section>
+
+    <nav class="nav-bottom">
+      <a href="../" class="nav-link back">
+        <span class="nav-link-label">← voltar</span>
+        <span class="nav-link-title">Hub do workshop</span>
+      </a>
+      <a href="../m2/" class="nav-link next">
+        <span class="nav-link-label">próximo →</span>
+        <span class="nav-link-title">M2 · Mão na Massa (8 casos)</span>
+      </a>
+    </nav>
 
   </main>
 </div>

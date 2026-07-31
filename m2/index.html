@@ -258,6 +258,15 @@ a:hover{color:var(--accent-dark)}
   .wrap{padding:0 16px}
   .header-meta{display:none}
 }
+
+/* nav bottom entre modulos */
+.nav-bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:40px 0;margin-top:56px;border-top:1px solid var(--border)}
+.nav-link{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:var(--radius);transition:background .18s;text-decoration:none}
+.nav-link:hover{background:var(--bg-warm)}
+.nav-link-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim)}
+.nav-link-title{font-size:15px;font-weight:600;color:var(--text)}
+.nav-link.next{text-align:right;align-items:flex-end}
+@media (max-width:640px){.nav-bottom{flex-direction:column;align-items:stretch}.nav-link.next{text-align:left;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -497,6 +506,17 @@ a:hover{color:var(--accent-dark)}
       Todos os insumos aqui são <strong>fictícios</strong>. Nome de cliente, CNPJ, valores, endereços — inventados pro treinamento. Quando você for adaptar pro seu dia a dia, <strong>troque os dados sensíveis primeiro</strong> ou anonimize. Regra simples: se você não colocaria em post do Instagram da rede, não cola cru na IA.
     </p>
   </div>
+
+  <nav class="nav-bottom">
+    <a href="../m1/" class="nav-link back">
+      <span class="nav-link-label">← módulo anterior</span>
+      <span class="nav-link-title">M1 · IA Sem Mistério</span>
+    </a>
+    <a href="../m3/" class="nav-link next">
+      <span class="nav-link-label">próximo →</span>
+      <span class="nav-link-title">M3 · Criando seu Primeiro Agente</span>
+    </a>
+  </nav>
 
 </main>
 
