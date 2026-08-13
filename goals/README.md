@@ -12,6 +12,9 @@ Fonte única do estado do projeto. Antes de qualquer nova onda: ler esta tabela 
 | 04 | m3-primeiros-agentes | 🟢 concluída | M3 single-page (7 seções) + caso-âncora `agente-relatorio-semanal` (4 arquivos: system prompt, contexto, comando, xlsx 4 semanas 2.946 linhas) |
 | 05 | m4-automacao-cowork-n8n | 🟢 concluída | M4 single-page (8 seções): Cowork × n8n em paralelo, framework Gatilho→Execução→Entrega, matriz de escolha, 2 cards de case pra demo ao vivo do Rafael (Cowork organiza pasta + n8n triagem CV) |
 | 06 | m5-diagnostico-canvas | 🟢 concluída | M5 single-page (6 seções): 6 gatilhos MP (Robô Humano · Tela em Branco · Detetive · Sparring · Tradutor · Olho Biônico) + Canvas MP interativo 5 blocos com localStorage + export TSV pra colar no Sheets do backlog da rede + compromisso 3 pontos |
+| 07 | fix-m4-timeline-nav-mobile | 🟢 concluída | Fix pós-auditoria: timeline n8n do M4 (`flex-wrap:nowrap` + coluna no mobile) e nav lateral virando barra horizontal rolável abaixo de 900px |
+| 08 | nav-modulos-e-copiar-prompt | 🟢 concluída | Nav voltar/próximo em M1 e M2 + fix dos links de M3/M4/M5 apontando pro módulo errado + botão "Copiar prompt" dos 8 casos M2 passa a copiar só o texto visível |
+| 09 | m3-time-de-agentes | 🟢 concluída | Extra didático do M3: `exemplos/time-de-agentes/` com conceito em 8 seções + 3 times de exemplo (Conselho Consultivo 11 · Time de Marca 15 · Time de Produto Digital 8). Nada pra baixar — só o racional |
 
 ## Convenções
 

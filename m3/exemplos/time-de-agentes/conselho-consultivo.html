@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conselho Consultivo · Time de IA · M3 Maria Pitanga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F0EEE6;--bg-elev:#FFFFFF;--bg-warm:#E8E6DC;--bg-code:#F5F3EA;
+  --text:#141413;--text-muted:#3D3D3A;--text-dim:#87867F;
+  --border:rgba(20,20,19,.10);--border-strong:rgba(20,20,19,.18);
+  --accent:#6B2E7A;--accent-dark:#4A1F55;--accent-soft:#F0E3EF;
+  --accent-tinted:#FBF7FB;--accent-line:rgba(107,46,122,.20);
+  --t1:#1E3A5F;--t1-soft:#E7EBF1;
+  --t2:#B23A48;--t2-soft:#F5E5E7;
+  --t3:#5B7553;--t3-soft:#E9EEE7;
+  --t4:#8B5A3C;--t4-soft:#F1E9E1;
+  --radius-sm:6px;--radius:10px;--radius-lg:14px;
+  --shadow-sm:0 1px 2px rgba(20,20,19,.04),0 1px 3px rgba(20,20,19,.06);
+  --shadow-md:0 4px 12px rgba(20,20,19,.06),0 2px 4px rgba(20,20,19,.04);
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono','Menlo',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
+
+.site-header{position:sticky;top:0;z-index:50;background:rgba(240,238,230,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.site-header-inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--text)}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+.brand-text{display:flex;flex-direction:column;line-height:1.2}
+.brand-title{font-weight:600;font-size:14px}
+.brand-sub{font-size:12px;color:var(--text-dim)}
+.chip{display:inline-flex;align-items:center;padding:5px 11px;border-radius:999px;font-size:12px;font-weight:500;background:var(--bg-warm);color:var(--text-muted)}
+.chip-accent{background:var(--accent-soft);color:var(--accent-dark)}
+.header-meta{display:flex;gap:8px}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+
+.crumbs{padding:20px 0 0;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);letter-spacing:.02em}
+.crumbs a{color:var(--text-muted)}.crumbs a:hover{color:var(--accent)}
+.crumbs .sep{margin:0 8px}
+
+.hero{padding:24px 0 40px}
+.hero-kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.hero h1{font-size:clamp(34px,4.5vw,52px);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px;max-width:820px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:19px;line-height:1.5;color:var(--text-muted);max-width:760px;margin-bottom:12px}
+.hero-when{font-size:16px;color:var(--text-muted);max-width:760px;background:var(--bg-warm);padding:16px 20px;border-radius:var(--radius);border-left:3px solid var(--accent);margin-top:20px}
+.hero-when strong{color:var(--text)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.leg-chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--bg-elev);color:var(--text-muted)}
+.leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+.section{padding:52px 0;border-top:1px solid var(--border)}
+.section-header{margin-bottom:28px;max-width:820px}
+.section-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+.section-title{font-size:28px;font-weight:600;line-height:1.15;letter-spacing:-.01em;margin-bottom:10px}
+.section-sub{font-size:16.5px;color:var(--text-muted);line-height:1.5;max-width:720px}
+
+/* orquestrador feature card */
+.chief{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;background:var(--bg-elev);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--radius-lg);padding:28px 32px;box-shadow:var(--shadow-sm)}
+.chief-icon{font-size:52px;line-height:1}
+.chief-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 8px;border-radius:4px;display:inline-block;font-weight:600;margin-bottom:12px}
+.chief-name{font-size:26px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+.chief-role{font-size:15.5px;color:var(--text-muted);line-height:1.55;margin-bottom:14px}
+.chief-quote{font-family:var(--font-mono);font-size:13.5px;font-style:italic;color:var(--accent-dark);padding:12px 16px;background:var(--accent-tinted);border-left:3px solid var(--accent);border-radius:4px}
+@media (max-width:720px){.chief{grid-template-columns:1fr;text-align:left;padding:24px}.chief-icon{font-size:40px}}
+
+/* tier heading */
+.tier-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid;flex-wrap:wrap}
+.tier-code{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;padding:4px 10px;color:#fff;font-weight:600;border-radius:4px}
+.tier-title{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.tier-desc{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-left:auto}
+.tier-1{border-color:var(--t1)}.tier-1 .tier-code{background:var(--t1)}
+.tier-2{border-color:var(--t2)}.tier-2 .tier-code{background:var(--t2)}
+.tier-3{border-color:var(--t3)}.tier-3 .tier-code{background:var(--t3)}
+.tier-4{border-color:var(--t4)}.tier-4 .tier-code{background:var(--t4)}
+
+/* specialist cards grid */
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.spec{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;display:flex;flex-direction:column;transition:border-color .18s ease}
+.spec:hover{border-color:var(--border-strong)}
+.spec-tab{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--text-dim);margin-bottom:14px;font-weight:500;width:fit-content;display:flex;align-items:center;gap:7px}
+.spec-tab::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+.spec.t1 .spec-tab::before{background:var(--t1)}
+.spec.t2 .spec-tab::before{background:var(--t2)}
+.spec.t3 .spec-tab::before{background:var(--t3)}
+.spec.t4 .spec-tab::before{background:var(--t4)}
+.spec-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.spec-icon{font-size:20px;line-height:1;flex-shrink:0}
+.spec-name{font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.spec-cred{font-size:13px;color:var(--text-dim);margin:0 0 16px;line-height:1.5}
+.spec-row{margin-bottom:12px}
+.spec-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:3px;font-weight:600}
+.spec-value{font-size:14px;color:var(--text-muted);line-height:1.55}
+.spec-quote{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:12px;font-style:italic;color:var(--text-dim);line-height:1.55}
+@media (max-width:960px){.spec-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.spec-grid{grid-template-columns:1fr}}
+
+/* tensões */
+.tensoes{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.tensao{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:16px 22px}
+.tensao-tema{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);grid-column:1/-1;margin-bottom:4px;font-weight:600}
+.pole{font-size:14px;color:var(--text);line-height:1.45}
+.pole.left{text-align:right}
+.pole.right{text-align:left}
+.pole b{color:var(--accent);font-weight:700}
+.vs{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--text-dim);position:relative;padding:0 12px;font-weight:600}
+.vs::before,.vs::after{content:"";position:absolute;top:50%;width:20px;height:1px;background:var(--border)}
+.vs::before{right:100%}.vs::after{left:100%}
+@media (max-width:720px){.tensao{grid-template-columns:1fr;text-align:left}.pole.left,.pole.right{text-align:left}.vs::before,.vs::after{display:none}.vs{padding:4px 0;text-align:center}}
+
+/* roteiro */
+.roteiro{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:16px;padding:24px;background:var(--accent-tinted);border:1px solid var(--accent-line);border-radius:var(--radius-lg)}
+.step-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.06em;margin-right:6px}
+.step{display:inline-flex;align-items:center;font-size:13.5px;font-family:var(--font-mono);padding:10px 14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);color:var(--text)}
+.step-arrow{color:var(--accent);font-family:var(--font-mono);font-size:16px;font-weight:600;margin:0 2px}
+
+/* insight */
+.insight{padding:28px 32px;background:var(--bg-elev);border:1px solid var(--accent-line);border-left:4px solid var(--accent);border-radius:var(--radius-lg);margin-top:20px}
+.insight p{font-size:16.5px;color:var(--text);line-height:1.65;margin:0}
+.insight strong{color:var(--accent-dark)}
+
+/* nav bottom */
+.nav-bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:40px 0;margin-top:56px;border-top:1px solid var(--border)}
+.nav-link{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:var(--radius);transition:background .18s;text-decoration:none}
+.nav-link:hover{background:var(--bg-warm)}
+.nav-link-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim)}
+.nav-link-title{font-size:15px;font-weight:600;color:var(--text)}
+.nav-link.next{text-align:right;align-items:flex-end}
+@media (max-width:640px){.nav-bottom{flex-direction:column;align-items:stretch}.nav-link.next{text-align:left;align-items:flex-start}}
+
+.site-footer{padding:24px 0 48px;color:var(--text-dim);font-size:13px;text-align:center;border-top:1px solid var(--border)}
+.site-footer a{color:var(--text-muted);font-weight:500}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="../../../" class="brand">
+      <div class="brand-mark">MP</div>
+      <div class="brand-text">
+        <div class="brand-title">Workshop IA · Maria Pitanga</div>
+        <div class="brand-sub">Rafael Lima · @iacomrafael</div>
+      </div>
+    </a>
+    <div class="header-meta">
+      <span class="chip chip-accent">Time · M3</span>
+      <span class="chip">11 conselheiros</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="crumbs">
+    <a href="../../../">Home</a>
+    <span class="sep">›</span>
+    <a href="../../">Módulo 3</a>
+    <span class="sep">›</span>
+    <a href="index.html">Time de IA</a>
+    <span class="sep">›</span>
+    <span>Conselho Consultivo</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-kicker">Time 01 · Decisão executiva</div>
+    <h1><em>Conselho</em> Consultivo.</h1>
+    <p class="hero-sub">Convoca 2 a 4 das maiores mentes de estratégia, capital, cultura e propósito pra atacar uma decisão de negócio pelo cruzamento de perspectivas conflitantes — em vez de consenso raso.</p>
+    <div class="hero-when">
+      <strong>Quando usar:</strong> encruzilhadas estratégicas que cruzam domínios (investir, escalar, vender, pivotar, contratar, demitir, mudar cultura). Sempre que consenso interno estiver alto demais e você quiser tensão produtiva antes de decidir.
+    </div>
+    <div class="legend">
+      <span class="leg-chip"><span class="leg-dot" style="background:var(--accent)"></span>Presidente · Orquestração</span>
+      <span class="leg-chip"><span class="leg-dot" style="background:var(--t1)"></span
+>Nível 1 · Decisão &amp; Capital</span>
+      <span class="leg-chip"><span class="leg-dot" style="background:var(--t2)"></span
+>Nível 2 · Estratégia &amp; Escala</span>
+      <span class="leg-chip"><span class="leg-dot" style="background:var(--t3)"></span
+>Nível 3 · Cultura &amp; Pessoas</span>
+      <span class="leg-chip"><span class="leg-dot" style="background:var(--t4)"></span
+>Nível 4 · Restrição &amp; Missão</span>
+    </div>
+  </section>
+
+  <!-- ORQUESTRADOR -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Presidente · Orquestração</div>
+      <h2 class="section-title">Quem roteia o desafio para o conselheiro certo.</h2>
+      <p class="section-sub">Não é especialista em nada — é especialista em CONVOCAR especialistas. Diagnostica a pergunta real por trás da pergunta declarada.</p>
+    </div>
+    <div class="chief">
+      <div class="chief-icon">🎼</div>
+      <div>
+        <span class="chief-tag">00 · Presidente</span>
+        <div class="chief-name">Presidente do Conselho</div>
+        <p class="chief-role">Diagnostica a pergunta real por trás da pergunta declarada, roteia para 2-4 conselheiros certos, facilita a discordância e sintetiza a tensão em ação concreta.</p>
+        <div class="chief-quote">"A pergunta certa importa mais que a resposta certa. O conselho aconselha — o fundador decide."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIER 1 -->
+  <section class="section">
+    <div class="tier-head tier-1">
+      <span class="tier-code">NÍVEL 1</span>
+      <span class="tier-title">Decisão &amp; Capital</span>
+      <span class="tier-desc">as mentes que ensinam a pensar, alocar risco e decidir com rigor</span>
+    </div>
+    <div class="spec-grid">
+
+      <div class="spec t1">
+        <span class="spec-tab">01</span>
+        <div class="spec-top"><span class="spec-icon">📐</span><span class="spec-name">Ray Dalio</span></div>
+        <p class="spec-cred">Fundador da Bridgewater (maior hedge fund do mundo, US$ 150B+), autor de <em>Principles</em>.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Princípios explícitos como algoritmo pessoal, processo de 5 passos, ciclos de dívida, radical truth + transparency.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Precisa de framework sistemático para decidir, diagnosticar causa-raiz ou entender ciclos de mercado.</span></div>
+        <p class="spec-quote">"Pain plus reflection equals progress."</p>
+      </div>
+
+      <div class="spec t1">
+        <span class="spec-tab">02</span>
+        <div class="spec-top"><span class="spec-icon">🧠</span><span class="spec-name">Charlie Munger</span></div>
+        <p class="spec-cred">Vice-chairman da Berkshire Hathaway por 45 anos (1978–2023), arquiteto dos modelos mentais.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Latticework multidisciplinar de modelos mentais, inversão, 25 vieses cognitivos, circle of competence.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Suspeita que viés cognitivo distorce sua leitura, ou quer listar TODO jeito de falhar antes de agir.</span></div>
+        <p class="spec-quote">"Invert, always invert."</p>
+      </div>
+
+      <div class="spec t1">
+        <span class="spec-tab">03</span>
+        <div class="spec-top"><span class="spec-icon">🧘</span><span class="spec-name">Naval Ravikant</span></div>
+        <p class="spec-cred">Co-fundador da AngelList, investidor-anjo em Twitter, Uber, Notion, filósofo-empreendedor.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Wealth = Specific Knowledge × Leverage × Judgment × Accountability. As 4 alavancas: labor, capital, code, media.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Avaliando ideia de negócio, decidindo entre emprego e equity, ou tentando escapar de competição por autenticidade.</span></div>
+        <p class="spec-quote">"Escape competition through authenticity."</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TIER 2 -->
+  <section class="section">
+    <div class="tier-head tier-2">
+      <span class="tier-code">NÍVEL 2</span>
+      <span class="tier-title">Estratégia &amp; Escala</span>
+      <span class="tier-desc">como transformar insight raro em empresa que domina mercado</span>
+    </div>
+    <div class="spec-grid">
+
+      <div class="spec t2">
+        <span class="spec-tab">04</span>
+        <div class="spec-top"><span class="spec-icon">♟️</span><span class="spec-name">Peter Thiel</span></div>
+        <p class="spec-cred">Co-fundador do PayPal e Palantir, primeiro investidor externo do Facebook (US$ 500K por 10,2%), autor de <em>Zero to One</em>.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Teoria do monopólio, zero-to-one, contrarian question, power law, 7 questions, definite optimism.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Avaliando se o negócio é 10x melhor (não 10% melhor), se tem secret ou se está sendo devorado por competição mimética.</span></div>
+        <p class="spec-quote">"Competition is for losers."</p>
+      </div>
+
+      <div class="spec t2">
+        <span class="spec-tab">05</span>
+        <div class="spec-top"><span class="spec-icon">🔗</span><span class="spec-name">Reid Hoffman</span></div>
+        <p class="spec-cred">Co-fundador do LinkedIn (vendido por US$ 26,2B), PayPal Mafia, sócio da Greylock, autor de <em>Blitzscaling</em>.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Blitzscaling (velocidade &gt; eficiência em mercados com network effect), ABZ planning, Tours of Duty, permanent beta.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Precisa decidir se e como escalar rápido, desenhar plano B/Z ou repensar contrato com talento.</span></div>
+        <p class="spec-quote">"If you're not embarrassed by v1, you launched too late."</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TIER 3 -->
+  <section class="section">
+    <div class="tier-head tier-3">
+      <span class="tier-code">NÍVEL 3</span>
+      <span class="tier-title">Cultura, Propósito &amp; Pessoas</span>
+      <span class="tier-desc">o lado humano da estratégia — sem trust nenhum plano executa</span>
+    </div>
+    <div class="spec-grid">
+
+      <div class="spec t3">
+        <span class="spec-tab">06</span>
+        <div class="spec-top"><span class="spec-icon">⭕</span><span class="spec-name">Simon Sinek</span></div>
+        <p class="spec-cred">Autor de <em>Start With Why</em> e <em>The Infinite Game</em>, TED Talk com 60M+ views.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Golden Circle (Why-How-What), infinite game com 5 práticas, Circle of Safety, neuroquímica da liderança.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">A organização perdeu propósito, líderes motivam por medo ou decisões parecem arbitrárias.</span></div>
+        <p class="spec-quote">"People don't buy what you do; they buy why you do it."</p>
+      </div>
+
+      <div class="spec t3">
+        <span class="spec-tab">07</span>
+        <div class="spec-top"><span class="spec-icon">💛</span><span class="spec-name">Brené Brown</span></div>
+        <p class="spec-cred">Pesquisadora da U. of Houston, 1.280+ entrevistas qualitativas, autora de <em>Dare to Lead</em>, TED Talk com 60M+ views.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Vulnerabilidade como coragem, shame vs guilt, BRAVING trust inventory, armored vs daring leadership.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Precisa construir trust real, sair de cultura performática ou ter a conversa corajosa que ninguém está tendo.</span></div>
+        <p class="spec-quote">"Clear is kind. Unclear is unkind."</p>
+      </div>
+
+      <div class="spec t3">
+        <span class="spec-tab">08</span>
+        <div class="spec-top"><span class="spec-icon">🏗️</span><span class="spec-name">Patrick Lencioni</span></div>
+        <p class="spec-cred">Fundador da The Table Group, 13 livros, 8M+ cópias vendidas — a maior autoridade em saúde organizacional.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">5 Dysfunctions of a Team (trust → conflict → commitment → accountability → results), Ideal Team Player.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Individuais talentosos, coletivo fraco. Harmonia artificial, accountability só no líder.</span></div>
+        <p class="spec-quote">"Trust is the foundation of real teamwork. Vulnerability is the foundation of trust."</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TIER 4 -->
+  <section class="section">
+    <div class="tier-head tier-4">
+      <span class="tier-code">NÍVEL 4</span>
+      <span class="tier-title">Restrição &amp; Missão</span>
+      <span class="tier-desc">as vozes que perguntam se você deveria estar fazendo isso mesmo</span>
+    </div>
+    <div class="spec-grid">
+
+      <div class="spec t4">
+        <span class="spec-tab">09</span>
+        <div class="spec-top"><span class="spec-icon">🎯</span><span class="spec-name">Derek Sivers</span></div>
+        <p class="spec-cred">Fundador da CD Baby (vendida por US$ 22M — deu TUDO para instituto de música), autor de <em>Hell Yeah or No</em>.</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Hell Yeah or No, Ideas × Execution, First Follower, Do the Opposite, Stay Small on Purpose, Enough.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Sob pressão para escalar/contratar/captar quando o instinto diz não, ou precisa de licença para ir contra a corrente.</span></div>
+        <p class="spec-quote">"If more information was the answer, we'd all be billionaires with perfect abs."</p>
+      </div>
+
+      <div class="spec t4">
+        <span class="spec-tab">10</span>
+        <div class="spec-top"><span class="spec-icon">🏔️</span><span class="spec-name">Yvon Chouinard</span></div>
+        <p class="spec-cred">Fundador da Patagonia. Em 2022 doou a empresa inteira ("Earth is now our only shareholder").</p>
+        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Anti-growth (quality × purpose × restraint), clean climbing, Management By Absence, filosofia dos 80%.</span></div>
+        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Tensão entre lucro e propósito, decisão sobre IPO/VC, ou construção de cultura missão-first genuína.</span></div>
+        <p class="spec-quote">"Growth for the sake of growth is the ideology of the cancer cell."</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TENSÕES -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Fricção</div>
+      <h2 class="section-title">Tensões produtivas — o board não é unânime de propósito.</h2>
+      <p class="section-sub">Discordância declarada é o produto, não o problema. O Presidente não dilui — amplifica. É o único jeito de ter conselho que ainda tem valor quando o LLM já sabe todas as boas práticas do mundo.</p>
+    </div>
+    <div class="tensoes">
+      <div class="tensao">
+        <div class="tensao-tema">Crescimento vs Sustentabilidade</div>
+        <div class="pole left"><b>Thiel / Hoffman</b> · crescer rápido, dominar mercado</div>
+        <div class="vs">atrito</div>
+        <div class="pole right"><b>Chouinard / Sivers</b> · restrição, pequeno de propósito</div>
+      </div>
+      <div class="tensao">
+        <div class="tensao-tema">Lógica vs Vulnerabilidade</div>
+        <div class="pole left"><b>Munger / Dalio</b> · sistemas racionais, algoritmos</div>
+        <div class="vs">atrito</div>
+        <div class="pole right"><b>Brown</b> · honestidade emocional, vulnerabilidade</div>
+      </div>
+      <div class="tensao">
+        <div class="tensao-tema">Competição vs Autenticidade</div>
+        <div class="pole left"><b>Thiel</b> · monopólio pela força</div>
+        <div class="vs">atrito</div>
+        <div class="pole right"><b>Naval / Sivers</b> · escape competition being yourself</div>
+      </div>
+      <div class="tensao">
+        <div class="tensao-tema">Sistemático vs Intuitivo</div>
+        <div class="pole left"><b>Dalio</b> · algoritmo, princípio escrito</div>
+        <div class="vs">atrito</div>
+        <div class="pole right"><b>Sivers</b> · hell yeah ou não, intuição</div>
+      </div>
+      <div class="tensao">
+        <div class="tensao-tema">Construir Grande vs Ficar Pequeno</div>
+        <div class="pole left"><b>Hoffman</b> · blitzscale, aceite o caos</div>
+        <div class="vs">atrito</div>
+        <div class="pole right"><b>Sivers</b> · fique pequeno de propósito</div>
+      </div>
+      <div class="tensao">
+        <div class="tensao-tema">Capital vs Propósito</div>
+        <div class="pole left"><b>Thiel</b> · VC, power law, lucro dominante</div>
+        <div class="vs">atrito</div>
+        <div class="pole right"><b>Chouinard</b> · missão acima do lucro</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROTEIRO -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Fluxo</div>
+      <h2 class="section-title">O roteiro padrão de uma consulta ao board.</h2>
+      <p class="section-sub">6 passos do briefing cru até síntese com dono. Nunca todos os 10 conselheiros — sempre 2 a 4 escolhidos pelo Presidente, ou um comitê pré-formado (Investment, Scaling, Culture, Founder, Contrarian).</p>
+    </div>
+    <div class="roteiro">
+      <span class="step"><span class="step-num">01</span>Traga o contexto cru</span>
+      <span class="step-arrow">→</span>
+      <span class="step"><span class="step-num">02</span>Presidente diagnostica</span>
+      <span class="step-arrow">→</span>
+      <span class="step"><span class="step-num">03</span>Roteamento (2-4)</span>
+      <span class="step-arrow">→</span>
+      <span class="step"><span class="step-num">04</span>Cada um fala na sua voz</span>
+      <span class="step-arrow">→</span>
+      <span class="step"><span class="step-num">05</span>Presidente nomeia tensões</span>
+      <span class="step-arrow">→</span>
+      <span class="step"><span class="step-num">06</span>Síntese + próximos passos</span>
+    </div>
+  </section>
+
+  <!-- INSIGHT FINAL -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Diferencial</div>
+      <h2 class="section-title">O que esse time tem de único.</h2>
+    </div>
+    <div class="insight">
+      <p>A arquitetura da <strong>tensão como método</strong>. A maioria dos "boards de IA" empilha 10 vozes que concordam entre si e entrega consenso sem atrito. Aqui a discordância é declarada como feature: Thiel foi posicionado explicitamente contra Chouinard, Dalio contra Sivers, Munger contra Brown. O Presidente do Conselho não dilui — amplifica. Isso muda o produto: em vez de resposta única, o executivo sai com a <strong>tensão nomeada</strong>, a visão minoritária preservada e a síntese de ordem superior — o único tipo de conselho que ainda tem valor quando o LLM já sabe todas as boas práticas do mundo.</p>
+    </div>
+  </section>
+
+  <!-- NAV BOTTOM -->
+  <nav class="nav-bottom">
+    <a href="index.html" class="nav-link back">
+      <span class="nav-link-label">← voltar</span>
+      <span class="nav-link-title">Criando seu time de IA</span>
+    </a>
+    <a href="time-marca.html" class="nav-link next">
+      <span class="nav-link-label">próximo time →</span>
+      <span class="nav-link-title">Time de Marca</span>
+    </a>
+  </nav>
+
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>
+      Workshop IA · Maria Pitanga · Módulo 3 · Rafael Lima
+      · <a href="https://www.instagram.com/iacomrafael/" target="_blank" rel="noopener">@iacomrafael</a>
+      · time Conselho Consultivo · 11 conselheiros em 4 níveis
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
