@@ -208,8 +208,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
         <span class="spec-tab">01</span>
         <div class="spec-top"><span class="spec-icon">🛡️</span><span class="spec-name">Guardião</span></div>
         <p class="spec-cred">Arquiteto de configuração — é quem escreve as "regras da casa" para o Claude Code (o que ele pode ler, editar, executar e onde pedir permissão).</p>
-        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Camadas de configuração (<code>settings.json</code>, <code>CLAUDE.md</code>, permissões, sandbox) — organiza o que é regra da empresa, do projeto ou pessoal.</span></div>
-        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Você quer garantir que o Claude não mexa em arquivo sensível, separar o padrão da empresa do pessoal, ou começar um projeto com permissões desenhadas antes de sair executando.</span></div>
+        <div class="spec-row"><span class="spec-label">Resolve</span><span class="spec-value">O medo de a IA mexer no que não devia. Ele deixa <strong>escrito o que ela pode ler, mudar e executar</strong> — e em que ponto ela é obrigada a parar e pedir sua autorização.</span></div>
+        <div class="spec-row"><span class="spec-label">Chame quando</span><span class="spec-value">Você vai soltar a IA num projeto com coisa sensível dentro.</span></div>
         <p class="spec-quote">"Configuração é código. Permissão mínima por padrão. Comece negando tudo e libere só o necessário."</p>
       </div>
 
@@ -217,8 +217,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
         <span class="spec-tab">02</span>
         <div class="spec-top"><span class="spec-icon">🏗️</span><span class="spec-name">Alicerce</span></div>
         <p class="spec-cred">Integrador de projeto — pega um repositório qualquer (novo ou legado bagunçado) e encaixa o Claude Code nele sem quebrar o que já funciona.</p>
-        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Metodologia PAI (Personal AI Infrastructure) de Daniel Miessler + ciclo 7 fases: Observar → Pensar → Planejar → Construir → Executar → Verificar → Aprender.</span></div>
-        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Trazendo o Claude Code para um projeto que já existe (com CI/CD, testes, hooks de git), montando estrutura do zero, ou precisa que ele entenda a "operação" do projeto sem se perder no meio da sessão.</span></div>
+        <div class="spec-row"><span class="spec-label">Resolve</span><span class="spec-value">Encaixar a IA num projeto que já está rodando sem quebrar o que funciona. Ele <strong>arruma a casa primeiro</strong>, pra IA saber onde está pisando em vez de adivinhar.</span></div>
+        <div class="spec-row"><span class="spec-label">Chame quando</span><span class="spec-value">O projeto já existe e você quer trazer a IA pra dentro.</span></div>
         <p class="spec-quote">"A estrutura importa mais que o modelo. Objetivo → Código → Terminal → Prompts → Agentes."</p>
       </div>
 
@@ -238,8 +238,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
         <span class="spec-tab">03</span>
         <div class="spec-top"><span class="spec-icon">⚙️</span><span class="spec-name">Gatilho</span></div>
         <p class="spec-cred">Arquiteta de automações determinísticas — monta as "regras automáticas" que disparam sozinhas em momentos-chave (antes de salvar arquivo, ao terminar uma tarefa, quando o Claude vai comprimir a memória).</p>
-        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Os 17 eventos do ciclo de vida do Claude Code (SessionStart, PreToolUse, PostToolUse, Stop, PreCompact e outros) — cada um vira uma oportunidade de encaixar automação.</span></div>
-        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Você quer que uma regra ACONTEÇA SEMPRE, sem depender do Claude "lembrar" (rodar teste antes de commit, bloquear comando perigoso, registrar log automático, injetar contexto no início da sessão).</span></div>
+        <div class="spec-row"><span class="spec-label">Resolve</span><span class="spec-value">A regra que só é cumprida quando alguém lembra. Ele amarra a regra num <strong>momento fixo</strong> — antes de salvar, ao terminar uma tarefa — e aí ela acontece sempre, sem depender de memória.</span></div>
+        <div class="spec-row"><span class="spec-label">Chame quando</span><span class="spec-value">Tem um passo que não pode ser esquecido nunca.</span></div>
         <p class="spec-quote">"Determinístico vence probabilístico. Se tem que acontecer sempre, vira gatilho."</p>
       </div>
 
@@ -247,8 +247,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
         <span class="spec-tab">04</span>
         <div class="spec-top"><span class="spec-icon">🔨</span><span class="spec-name">Forja</span></div>
         <p class="spec-cred">Artesão de habilidades — cria as "skills" (habilidades reutilizáveis) e comandos personalizados (<code>/comando</code>) que viram os atalhos do seu dia a dia.</p>
-        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Spec-driven development (inspirado em BMAD Method) — todo workflow repetido vira uma skill com contrato claro de entrada e saída.</span></div>
-        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Percebe que está copiando o mesmo prompt toda semana, quer transformar um processo repetitivo em comando de uma linha, ou empacotar seu conhecimento num plugin pra o time inteiro usar.</span></div>
+        <div class="spec-row"><span class="spec-label">Resolve</span><span class="spec-value">Reescrever o mesmo pedido toda semana. Ele empacota o processo repetido num <strong>comando curto</strong> que você e o time chamam quando precisam.</span></div>
+        <div class="spec-row"><span class="spec-label">Chame quando</span><span class="spec-value">Você copia e cola o mesmo texto há semanas.</span></div>
         <p class="spec-quote">"Especificação antes do código. Toda habilidade é um contrato entre a intenção humana e a execução da IA."</p>
       </div>
 
@@ -268,8 +268,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
         <span class="spec-tab">05</span>
         <div class="spec-top"><span class="spec-icon">🔌</span><span class="spec-name">Conector</span></div>
         <p class="spec-cred">Integradora de ferramentas externas (MCPs) — pensa em quais "plugins" o Claude precisa pra conectar em serviços de fora (GitHub, Slack, banco de dados, APIs) sem inchar a memória dele.</p>
-        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Economia da janela de contexto — cada ferramenta adicionada custa tokens; a arte é escolher o mínimo que desbloqueia o máximo (inspiração: Peter Steinberger).</span></div>
-        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Quer conectar o Claude com Notion, Supabase, Gmail; está com sensação de "o Claude está lento e esquecendo coisas" (provavelmente MCPs demais); ou não sabe se usa MCP ou apenas o terminal.</span></div>
+        <div class="spec-row"><span class="spec-label">Resolve</span><span class="spec-value">IA lenta e esquecida porque tem ferramenta demais ligada. Ele <strong>escolhe o mínimo que resolve</strong> e corta o resto — cada ferramenta a mais ocupa espaço na memória dela.</span></div>
+        <div class="spec-row"><span class="spec-label">Chame quando</span><span class="spec-value">A IA está devagar e perdendo o fio da conversa.</span></div>
         <p class="spec-quote">"Menos é mais. Terminal primeiro, MCP quando necessário. Justifique cada adição."</p>
       </div>
 
@@ -277,8 +277,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
         <span class="spec-tab">06</span>
         <div class="spec-top"><span class="spec-icon">🕸️</span><span class="spec-name">Maestro</span></div>
         <p class="spec-cred">Maestro de múltiplos agentes — desenha times de agentes trabalhando em paralelo, cada um em seu contexto isolado, coordenados por uma topologia clara.</p>
-        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Cinco topologias canônicas — Líder-trabalhadores, Pipeline, Enxame, Conselho, Vigia (inspiração: Kieran Klaassen + Reuven Cohen).</span></div>
-        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Uma tarefa é grande demais para um agente só, quer rodar várias explorações em paralelo (ex: pesquisar 5 concorrentes ao mesmo tempo), ou precisa de "revisor + construtor" trabalhando juntos.</span></div>
+        <div class="spec-row"><span class="spec-label">Resolve</span><span class="spec-value">Tarefa grande demais pra uma conversa só dar conta. Ele <strong>divide o trabalho entre vários assistentes ao mesmo tempo</strong> e junta o resultado no fim.</span></div>
+        <div class="spec-row"><span class="spec-label">Chame quando</span><span class="spec-value">Você precisa analisar cinco coisas em paralelo, não uma.</span></div>
         <p class="spec-quote">"Topologia primeiro. Isolamento por padrão. Todo trabalho que se abre em paralelo precisa de um ponto de convergência definido."</p>
       </div>
 
@@ -286,8 +286,8 @@ a{color:var(--accent);text-decoration:none}a:hover{color:var(--accent-dark)}
         <span class="spec-tab">07</span>
         <div class="spec-top"><span class="spec-icon">🔭</span><span class="spec-name">Radar</span></div>
         <p class="spec-cred">Sentinela do roadmap — acompanha tudo que a Anthropic lança no Claude Code e traduz em: "vale adotar já, vale testar com cuidado, ou é experimental demais".</p>
-        <div class="spec-row"><span class="spec-label">Atua em</span><span class="spec-value">Filosofia "plan-first" de Boris Cherny (criador do Claude Code) + Technology Radar (Adopt / Trial / Assess).</span></div>
-        <div class="spec-row"><span class="spec-label">Consulte quando</span><span class="spec-value">Quer saber se uma feature nova (Agent Teams, Cowork, Fast Mode) já vale a pena adotar, precisa planejar migração, ou não tem certeza se o que está fazendo já foi resolvido nativamente numa versão recente.</span></div>
+        <div class="spec-row"><span class="spec-label">Resolve</span><span class="spec-value">Ficar pra trás — ou o contrário, correr atrás de toda novidade que aparece. Ele separa <strong>o que já vale usar do que ainda é experimento</strong>.</span></div>
+        <div class="spec-row"><span class="spec-label">Chame quando</span><span class="spec-value">Saiu recurso novo e você não sabe se adota agora.</span></div>
         <p class="spec-quote">"Planeje antes de codar. Otimize por custo de mudança confiável, não por custo de token."</p>
       </div>
 
